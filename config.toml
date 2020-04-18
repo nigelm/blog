@@ -1,4 +1,4 @@
-baseurl = "https://nigelm.github.io/blog/"
+baseurl = "https://nigelm.github.io/"
 languageCode = "en-us"
 title = "Nailing Jelly"
 theme =  "hugo-flex"
