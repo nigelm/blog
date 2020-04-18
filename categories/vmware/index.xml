@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://nigelm.github.io/blog/xml/base.min.xml" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vmware on Nailing Jelly</title>
+    <link>https://nigelm.github.io/blog/categories/vmware/</link>
+    <description>Recent content in vmware on Nailing Jelly</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 31 Mar 2007 09:27:00 +0000</lastBuildDate>
+    <atom:link href="https://nigelm.github.io/blog/categories/vmware/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Relocation and Resurrection</title>
+      <link>https://nigelm.github.io/blog/posts/2020/2020-04-18-relocation-and-resurrection/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://nigelm.github.io/blog/posts/2020/2020-04-18-relocation-and-resurrection/</guid>
+      <description>&lt;p&gt;After a vastly long hiatus (the post 5 years back stating I intended to blog
+more &lt;em&gt;really&lt;/em&gt; doesn&amp;rsquo;t count), I&amp;rsquo;ve finally put something together.&lt;/p&gt;
+&lt;p&gt;Basically I have a batch of things I am trying out and so want to keep more
+permanent notes on, hence bringing this back into play.&lt;/p&gt;
+&lt;h2 id=&#34;hosting&#34;&gt;Hosting&lt;/h2&gt;
+&lt;p&gt;Previously I put content onto &lt;code&gt;wordpress.com&lt;/code&gt; &amp;ndash; I certainly did not want to
+get involved in actually managing the blogging platform.  However in the mean
+time I have been using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; for various thing, and it is
+a much nicer system for me to work with, so moving to Hugo was an easy choice.&lt;/p&gt;
+&lt;p&gt;Additionally I can now use &lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt; to host
+the content (or various similar services).&lt;/p&gt;
+&lt;p&gt;The old Wordpress content was dumped as an XML export and converted to
+Markdown as described in &lt;a href=&#34;https://arjan.wooning.cz/conversion-tools-from-wordpress-to-hugo/#final-solution-exitwp-for-hugo&#34;&gt;Conversion tools from Wordpress to
+Hugo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The theme is &lt;a href=&#34;https://themes.gohugo.io/hugo-flex/&#34;&gt;hugo-flex&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now all I need to do is write more content.&lt;/p&gt;
+</description>
+    </item>
+  </channel>
+</rss>
