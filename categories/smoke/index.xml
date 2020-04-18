@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<?xml-stylesheet type="text/xsl" href="https://nigelm.github.io/blog/xml/base.min.xml" ?>
+<?xml-stylesheet type="text/xsl" href="https://nigelm.github.io/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>smoke on Nailing Jelly</title>
-    <link>https://nigelm.github.io/blog/categories/smoke/</link>
+    <link>https://nigelm.github.io/categories/smoke/</link>
     <description>Recent content in smoke on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 24 Apr 2009 11:35:56 +0000</lastBuildDate>
-    <atom:link href="https://nigelm.github.io/blog/categories/smoke/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://nigelm.github.io/categories/smoke/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Relocation and Resurrection</title>
-      <link>https://nigelm.github.io/blog/posts/2020/2020-04-18-relocation-and-resurrection/</link>
+      <link>https://nigelm.github.io/posts/2020/2020-04-18-relocation-and-resurrection/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://nigelm.github.io/blog/posts/2020/2020-04-18-relocation-and-resurrection/</guid>
+      <guid>https://nigelm.github.io/posts/2020/2020-04-18-relocation-and-resurrection/</guid>
       <description>&lt;p&gt;After a vastly long hiatus (the post 5 years back stating I intended to blog
 more &lt;em&gt;really&lt;/em&gt; doesn&amp;rsquo;t count), I&amp;rsquo;ve finally put something together.&lt;/p&gt;
 &lt;p&gt;Basically I have a batch of things I am trying out and so want to keep more
