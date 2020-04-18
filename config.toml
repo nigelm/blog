@@ -1,4 +1,4 @@
-baseurl = "https://nigelm.github.io/"
+baseurl = "https://blog.dotdot.cloud/"
 languageCode = "en-us"
 title = "Nailing Jelly"
 theme =  "hugo-flex"
