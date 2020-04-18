@@ -1,3 +1,44 @@
-baseURL = "http://example.org/"
+baseurl = "https://nigelm.github.io/blog/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Nailing Jelly"
+theme =  "hugo-flex"
+paginate =  10
+pygmentsCodeFences = true
+enableRobotsTXT = true
+
+[menu]
+
+  [[ menu.nav]]
+    name = "About"
+    url = "about/"
+    weight = 1
+
+  [[ menu.nav]]
+    name = "Posts"
+    url = "posts/"
+    weight = 2
+
+  [[ menu.nav]]
+    name = "Tags"
+    url = "tags/"
+    weight = 3
+
+  [[ menu.nav]]
+    name = "Categories"
+    url = "categories/"
+    weight = 4
+
+  [[ menu.nav]]
+    name = "RSS"
+    url = "index.xml"
+    weight = 5
+
+[params]
+  author = "Nigel Metheringham"
+  description = "Things just aren't as easy as the guidebook said..."
+  images = ["images/og-featured.png"]
+  twittercards = true
+  summaries = true
+  color = "lightseagreen"
+
+# end
