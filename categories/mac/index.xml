@@ -10,6 +10,127 @@
     <lastBuildDate>Wed, 09 May 2007 21:58:00 +0000</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/categories/mac/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>York Bins API and Home Assistant</title>
+      <link>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</link>
+      <pubDate>Mon, 20 Apr 2020 17:05:43 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</guid>
+      <description>&lt;p&gt;I have been using Home Assistant to automate various things at home.  One of
+the things I thought would be useful was the ability for the system to inform
+me of when the next bin collection is, and what sort of collection this would
+be.&lt;/p&gt;
+&lt;p&gt;Thankfully York Council has an API telling you about their bin collections.
+This is documented at &lt;a href=&#34;https://data.yorkopendata.org/dataset/waste-collection-lookup&#34;&gt;York Waste Collection
+Lookup&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;home-assistant-rest-sensors&#34;&gt;Home Assistant REST Sensors&lt;/h2&gt;
+&lt;p&gt;Home Assistant helpfully can use REST sources as a sensor.  Unfortunately the
+formatting of the data in the York API is not well arranged to be easy for
+Home Assistant to use - in particular Home Assistant is not easily able to
+handle returned data that is organised as an array of dictionaries.&lt;/p&gt;
+&lt;p&gt;People have made use of this in the past - for example see &lt;a href=&#34;https://community.home-assistant.io/t/sorting-rest-sensors-by-date/96786&#34;&gt;this
+example&lt;/a&gt;.
+However this makes multiple calls to the API, which is unfriendly, and relies
+on the API always returning its data in the same order in the arrya, which
+appears to not be specified.&lt;/p&gt;
+&lt;h2 id=&#34;python-command-line-shim-for-home-assistant&#34;&gt;Python Command Line Shim For Home Assistant&lt;/h2&gt;
+&lt;p&gt;I decided it was better to put a shim in to pull the data from the API, do a
+little processing on the data - specifically changing the date format into
+something sane - and arrange these as a dictionary with some additional
+overall collection data around it.&lt;/p&gt;
+&lt;p&gt;This shim can be found in the Github repository at
+&lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;https://github.com/nigelm/york_bin_collection&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A sample of using it would look like:-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sensor:
+  # York Bins Collection API - 3 sets, 1 for each bin
+  - platform: command_line
+    command: /config/york_bin_collection.py 100050567115
+    name: Bin Collection
+    scan_interval: 86400
+    value_template: &#39;{{ value_json.next_collection }}&#39;
+    json_attributes:
+      - next_collection
+      - next_collection_types
+      - blackbin
+      - greenbin
+      - box
+      - updated
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and this would return the date of the next collection as the main value -
+currently &lt;code&gt;2020-04-24&lt;/code&gt; - and the state attributes (reported as YAML) then
+looks like:-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;next_collection: &#39;2020-04-24&#39;
+next_collection_types:
+  - blackbin
+blackbin:
+  BinType: GREY 180
+  BinTypeDescription: Grey Bin 180L
+  CollectionDay: FRI
+  CollectionDayFull: Friday
+  CollectionDayOfWeek: 5
+  CollectionFrequency: Alternate Weeks
+  CollectionFrequencyShort: WEEK 2
+  CollectionPoint: FRONT
+  CollectionPointDescription: Edge of Property at Front
+  CollectionPointLocation: null
+  CollectionType: GREY BIN/SACK
+  CollectionTypeDescription: Grey Bin/Black Sack Collection
+  ImageName: blackbin
+  Locality: null
+  MaterialsCollected: General Domestic
+  NumberOfBins: &#39;1&#39;
+  WasteType: GREY BIN/SACK
+  WasteTypeDescription: Grey Bin/Black Sack Collection
+  last: &#39;2020-04-10&#39;
+  next: &#39;2020-04-24&#39;
+greenbin:
+  BinType: GREEN 180
+  BinTypeDescription: Green Bin 180L
+  CollectionDay: FRI
+  CollectionDayFull: Friday
+  CollectionDayOfWeek: 5
+  CollectionFrequency: Alternate Weeks
+  CollectionFrequencyShort: WEEK 1
+  CollectionPoint: FRONT
+  CollectionPointDescription: Edge of Property at Front
+  CollectionPointLocation: null
+  CollectionType: GREEN
+  CollectionTypeDescription: Green Collection
+  ImageName: greenbin
+  Locality: null
+  MaterialsCollected: Garden Waste
+  NumberOfBins: &#39;1&#39;
+  WasteType: GREEN
+  WasteTypeDescription: Green Collection
+  last: &#39;2019-11-29&#39;
+  next: null
+box:
+  BinType: BOX 55
+  BinTypeDescription: Box 55L
+  CollectionDay: FRI
+  CollectionDayFull: Friday
+  CollectionDayOfWeek: 5
+  CollectionFrequency: Alternate Weeks
+  CollectionFrequencyShort: WEEK 1
+  CollectionPoint: FRONT
+  CollectionPointDescription: Edge of Property at Front
+  CollectionPointLocation: null
+  CollectionType: KERBSIDE
+  CollectionTypeDescription: Kerbside Collection
+  ImageName: box
+  Locality: null
+  MaterialsCollected: &#39;Paper/Card : Plastic/Cans : Glass&#39;
+  NumberOfBins: &#39;3&#39;
+  WasteType: KERBSIDE
+  WasteTypeDescription: Kerbside Collection
+  last: &#39;2020-04-17&#39;
+  next: &#39;2020-05-01&#39;
+updated: &#39;2020-04-20 16:25:55.918518&#39;
+friendly_name: Bin Collection
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This data can then be used in other automations - thats what I am going to
+look at next.&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Relocation and Resurrection</title>
       <link>https://blog.dotdot.cloud/posts/2020/2020-04-18-relocation-and-resurrection/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>

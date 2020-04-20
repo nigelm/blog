@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://blog.dotdot.cloud/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>embarassing on Nailing Jelly</title>
-    <link>https://blog.dotdot.cloud/categories/embarassing/</link>
-    <description>Recent content in embarassing on Nailing Jelly</description>
+    <title>Python on Nailing Jelly</title>
+    <link>https://blog.dotdot.cloud/tags/python/</link>
+    <description>Recent content in Python on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2009 19:43:56 +0000</lastBuildDate>
-    <atom:link href="https://blog.dotdot.cloud/categories/embarassing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Apr 2020 17:05:43 +0100</lastBuildDate>
+    <atom:link href="https://blog.dotdot.cloud/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>York Bins API and Home Assistant</title>
       <link>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</link>
