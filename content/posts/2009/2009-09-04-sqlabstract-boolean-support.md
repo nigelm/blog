@@ -9,6 +9,11 @@ categories:
 - ramblings
 ---
 
-[ribasuschi](http://search.cpan.org/~ribasushi/) shipped [SQL::Abstract](http://search.cpan.org/dist/SQL-Abstract/) version 1.58 earlier today.  This version includes the boolean support code I previously [discussed here](/2009/05/11/extending-sqlabstract/) - with a few additional bells and whistles merged in more recently.
+[ribasuschi](http://search.cpan.org/~ribasushi/) shipped
+[[SQL::Abstract](http://search.cpan.org/dist/SQL-Abstract/) version 1.58
+[earlier today.  This version includes the boolean support code I previously
+[[discussed here](/2009/05/11/extending-sqlabstract/) - with a few additional
+[bells and whistles merged in more recently.
 
-We've had a good number of discussions about the best way of doing things, and finally settled on this form of boolean support as a method :-)
+We've had a good number of discussions about the best way of doing things, and
+finally settled on this form of boolean support as a method :-)

@@ -9,6 +9,8 @@ categories:
 - ramblings
 ---
 
-I'm going to write a little more on this blog - admittedly after a 5 year gap its a little difficult to write less!
+I'm going to write a little more on this blog - admittedly after a 5 year gap
+its a little difficult to write less!
 
-Anyhow I have a little ranting and a bit of general meandering thought to write down, so here goes.
+Anyhow I have a little ranting and a bit of general meandering thought to
+write down, so here goes.

@@ -12,7 +12,9 @@ categories:
 ![Getty](http://static.guim.co.uk/sys-images/Music/Pix/pictures/2009/1/22/1232636376890/Ghost-002.jpg)
 
 
-So this image is used to illustrate the news story [Chaplain to ward off hospital ghost](http://www.guardian.co.uk/society/2009/jan/30/hospital-ghost-derby).
+So this image is used to illustrate the news story [Chaplain to ward off
+hospital
+ghost](http://www.guardian.co.uk/society/2009/jan/30/hospital-ghost-derby).
 
 I salute the person who decided to go with the bedsheet theme for the illustration.
 

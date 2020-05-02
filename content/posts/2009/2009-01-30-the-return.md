@@ -10,5 +10,8 @@ categories:
 ---
 
 Hmm.. it's been a while.  A very long while in fact.  
-However I think I will resurrect this blog - I did wonder about quietly killing it and starting another rather than have the embarassment of an 18 month gap in posting, but I'll live with that for now.  
-We can at least see where it goes from here.
+
+However I think I will resurrect this blog - I did wonder about quietly
+killing it and starting another rather than have the embarassment of an 18
+month gap in posting, but I'll live with that for now.   We can at least see
+where it goes from here.
