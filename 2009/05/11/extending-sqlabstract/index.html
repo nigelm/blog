@@ -100,17 +100,30 @@ column =&gt; \&#39;&#39;  which maps to"/>
     <time datetime="2009-05-11T19:48:28Z">11 May, 2009</time>
   
 </header>
-    <p>Most of the perl I write currently has ties into <a href="http://search.cpan.org/perldoc?DBIx::Class">DBIx::Class</a> and hence uses <a href="http://search.cpan.org/perldoc?SQL::Abstract">SQL::Abstract</a>.</p>
-<p>I also have far too much of a preference for boolean items, which I normally encode in the database as a column of type boolean (or the <a href="http://sqlite.org/">SQLite</a> vague equivalent).</p>
-<p>Its been fairly easy to encode a test for boolean value being true with SQL::Abstract - although the syntax</p>
+    <p>Most of the perl I write currently has ties into
+<a href="http://search.cpan.org/perldoc?DBIx::Class">DBIx::Class</a> and hence uses
+<a href="http://search.cpan.org/perldoc?SQL::Abstract">SQL::Abstract</a>.</p>
+<p>I also have far too much of a preference for boolean items, which I normally
+encode in the database as a column of type boolean (or the
+<a href="http://sqlite.org/">SQLite</a> vague equivalent).</p>
+<p>Its been fairly easy to encode a test for boolean value being true with
+SQL::Abstract - although the syntax</p>
 <pre><code>column =&gt; \''
 </code></pre>
 <p>which maps to</p>
 <pre><code>WHERE column
 </code></pre>
-<p>is a little esoteric.  However its downright close to impossible to produce the opposite test without using literal SQL (actually the first version uses literal SQL - except the SQL statement is NULL and comes <em>after</em> the column reference).</p>
-<p>So today I have spent a little time extending SQL::Abstract to support the -bool and -not_bool unary operators which allow both positive and negative boolean tests to be encoded in a way that does not resort to literal SQL.</p>
-<p>As part of this I refactored a part of SQL::Abstract so that further extensions of this type can be added more easily - adding a unary_ops extension to the constractor in the same way as the previously existing special_ops.</p>
+<p>is a little esoteric.  However its downright close to impossible to produce
+the opposite test without using literal SQL (actually the first version uses
+literal SQL - except the SQL statement is NULL and comes <em>after</em> the column
+reference).</p>
+<p>So today I have spent a little time extending SQL::Abstract to support the
+-bool and -not_bool unary operators which allow both positive and negative
+boolean tests to be encoded in a way that does not resort to literal SQL.</p>
+<p>As part of this I refactored a part of SQL::Abstract so that further
+extensions of this type can be added more easily - adding a unary_ops
+extension to the constractor in the same way as the previously existing
+special_ops.</p>
 <p>So now:-</p>
 <pre><code>-bool      =&gt; this_column,
 -not_bool  =&gt; that_column
@@ -118,7 +131,14 @@ column =&gt; \&#39;&#39;  which maps to"/>
 <p>will map to</p>
 <pre><code>WHERE this_column AND NOT that_column
 </code></pre>
-<p>The code for this is currently sitting in a <a href="http://dev.catalyst.perl.org/svnweb/bast/browse/SQL-Abstract/1.x/branches/bool_operator/">svn branch</a> - please have a look and comment on this.  My own criticism of it is that the syntax is clunky, but we are restricted to the perl datastructure mapping approach of the existing code (which is the real <em>raison d&rsquo;etre</em> of SQL::Abstract).</p>
+<p>The code for this is currently sitting in a <a href="http://dev.catalyst.perl.org/svnweb/bast/browse/SQL-Abstract/1.x/branches/bool_operator/">svn
+branch</a></p>
+<ul>
+<li>please have a look and comment on this.  My own criticism of it is that the
+syntax is clunky, but we are restricted to the perl datastructure mapping
+approach of the existing code (which is the real <em>raison d&rsquo;etre</em> of
+SQL::Abstract).</li>
+</ul>
 
     
 

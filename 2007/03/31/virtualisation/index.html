@@ -97,8 +97,21 @@ We need to be able to handle Windows VMs as well as proper operating systems, so
   
 </header>
     <p>I&rsquo;ve been looking at virtualisation recently - both for use within my group and for wider use with the company.</p>
-<p>We need to be able to handle Windows VMs as well as proper operating systems, so unfortunately things like <a href="http://openvz.org/">Open VZ</a> or its commercial cousin <a href="http://www.swsoft.com/en/virtuozzo">Virtuozzo</a> are not an option, which pretty much leaves Xen (both the Linux distribution hosted version and the Xensource packaged version) and <a href="http://www.vmware.com/">VMWare.</a>  Live migration of VMs would be useful, although for its overkill for our group requirements (but having it means we can test how things work in a clustered environment with migration, so its down as a really want if not a must have).</p>
-<p>The Xensource packaged Xen versions - we&rsquo;re evaluating <a href="http://www.xensource.com/products/xen_enterprise/index.html">Xen Enterprise</a> - are interesting but appear a little early in their development at present, and have poor SAN/storage options and no current live migration support.  VMWare is the most flexible, polished and capable - its also by far the most expensive.  Xen running under a Linux distribution (intention is to use <a href="http://www.centos.org/">Centos</a> 5) has yet to be tested.</p>
+<p>We need to be able to handle Windows VMs as well as proper operating systems,
+so unfortunately things like <a href="http://openvz.org/">Open VZ</a> or its commercial
+cousin <a href="http://www.swsoft.com/en/virtuozzo">Virtuozzo</a> are not an option,
+which pretty much leaves Xen (both the Linux distribution hosted version and
+the Xensource packaged version) and <a href="http://www.vmware.com/">VMWare.</a>  Live
+migration of VMs would be useful, although for its overkill for our group
+requirements (but having it means we can test how things work in a clustered
+environment with migration, so its down as a really want if not a must have).</p>
+<p>The Xensource packaged Xen versions - we&rsquo;re evaluating <a href="http://www.xensource.com/products/xen_enterprise/index.html">Xen
+Enterprise</a> - are
+interesting but appear a little early in their development at present, and
+have poor SAN/storage options and no current live migration support.  VMWare
+is the most flexible, polished and capable - its also by far the most
+expensive.  Xen running under a Linux distribution (intention is to use
+<a href="http://www.centos.org/">Centos</a> 5) has yet to be tested.</p>
 <p>More work to see what else is good needs to be done here&hellip;.</p>
 
     

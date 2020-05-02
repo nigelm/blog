@@ -10,10 +10,22 @@
     <lastBuildDate>Fri, 13 Apr 2007 08:11:00 +0000</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/categories/kvetching/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Minor Gardening</title>
+      <link>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</link>
+      <pubDate>Sat, 02 May 2020 19:50:53 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve done some tidying of the old posts - mostly this should have zero effect
+on what you see, but the  Markdown has been tidied (line wraps added in to
+make editing more comfortable), and any internal links should now be internal
+rather than going back to the previous wordpress site.&lt;/p&gt;
+&lt;p&gt;Now to actually add some current content&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>York Bins API and Home Assistant</title>
-      <link>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</link>
+      <link>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</link>
       <pubDate>Mon, 20 Apr 2020 17:05:43 +0100</pubDate>
-      <guid>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</guid>
+      <guid>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</guid>
       <description>&lt;p&gt;I have been using Home Assistant to automate various things at home.  One of
 the things I thought would be useful was the ability for the system to inform
 me of when the next bin collection is, and what sort of collection this would
@@ -132,9 +144,9 @@ look at next.&lt;/p&gt;
     </item>
     <item>
       <title>Relocation and Resurrection</title>
-      <link>https://blog.dotdot.cloud/posts/2020/2020-04-18-relocation-and-resurrection/</link>
+      <link>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</link>
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
-      <guid>https://blog.dotdot.cloud/posts/2020/2020-04-18-relocation-and-resurrection/</guid>
+      <guid>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</guid>
       <description>&lt;p&gt;After a vastly long hiatus (the post 5 years back stating I intended to blog
 more &lt;em&gt;really&lt;/em&gt; doesn&amp;rsquo;t count), I&amp;rsquo;ve finally put something together.&lt;/p&gt;
 &lt;p&gt;Basically I have a batch of things I am trying out and so want to keep more

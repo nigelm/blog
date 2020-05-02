@@ -4,21 +4,41 @@
   
   <url>
     <loc>https://blog.dotdot.cloud/categories/2020/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/tags/api/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.dotdot.cloud/categories/blog/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.dotdot.cloud/categories/</loc>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/tags/meta/</loc>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</loc>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/posts/</loc>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/tags/</loc>
+    <lastmod>2020-05-02T19:50:53+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/tags/api/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
   </url>
   
@@ -28,32 +48,17 @@
   </url>
   
   <url>
-    <loc>https://blog.dotdot.cloud/posts/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.dotdot.cloud/tags/python/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.dotdot.cloud/tags/</loc>
+    <loc>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.dotdot.cloud/posts/2020/2020-04-20-york-bins-api-and-home-assistant/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/tags/meta/</loc>
-    <lastmod>2020-04-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/posts/2020/2020-04-18-relocation-and-resurrection/</loc>
+    <loc>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</loc>
     <lastmod>2020-04-18T00:00:00+00:00</lastmod>
   </url>
   
