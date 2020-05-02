@@ -10,6 +10,6 @@ categories:
 - pendanty
 ---
 
-[.. and don't get me started on the absurdity of 'mini-summit'.](http://kernelslacker.livejournal.com/76337.html)  
-  
+[.. and don't get me started on the absurdity of 'mini-summit'.](http://kernelslacker.livejournal.com/76337.html)
+
 I think you will find thats a [Hump](http://en.wikipedia.org/wiki/Hump)

@@ -17,6 +17,6 @@ and then link across to linux.com.
 
 Annoyingly NewsForge's RSS feed appears to push stuff out faster than
 linux.com's so I often see content on there before the same (but in this case
-complete and original) content appears on the linux.com feed.  
-  
+complete and original) content appears on the linux.com feed.
+
 I've solved that problem for now - NewsForge is off my feedlist.

@@ -20,13 +20,13 @@ encode in the database as a column of type boolean (or the
 Its been fairly easy to encode a test for boolean value being true with
 SQL::Abstract - although the syntax
 
-    
+
     column => \''
 
 
 which maps to
 
-    
+
     WHERE column
 
 
@@ -46,14 +46,14 @@ special_ops.
 
 So now:-
 
-    
+
     -bool      => this_column,
     -not_bool  => that_column
 
 
 will map to
 
-    
+
     WHERE this_column AND NOT that_column
 
 

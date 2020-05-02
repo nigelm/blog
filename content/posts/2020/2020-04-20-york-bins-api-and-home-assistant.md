@@ -15,7 +15,7 @@ the things I thought would be useful was the ability for the system to inform
 me of when the next bin collection is, and what sort of collection this would
 be.
 
-Thankfully York Council has an API telling you about their bin collections. 
+Thankfully York Council has an API telling you about their bin collections.
 This is documented at [York Waste Collection
 Lookup](https://data.yorkopendata.org/dataset/waste-collection-lookup)
 
@@ -135,4 +135,3 @@ looks like:-
 
 This data can then be used in other automations - thats what I am going to
 look at next.
-

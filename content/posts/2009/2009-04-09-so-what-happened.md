@@ -9,13 +9,10 @@ categories:
 - ramblings
 ---
 
-Somehow I have been absolutely snowed under for the last 2 months...  
+Somehow I have been absolutely snowed under for the last 2 months...
 
 The good bit is that I have the next 10 days on holiday - which means no
-blogging whatsoever (no change there then).  
+blogging whatsoever (no change there then).
 
 Hopefully I should be able to actually write something when I get back,
 although I am starting off with the get in and running of a musical.
-
-
-

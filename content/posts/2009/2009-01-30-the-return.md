@@ -9,7 +9,7 @@ categories:
 - meta
 ---
 
-Hmm.. it's been a while.  A very long while in fact.  
+Hmm.. it's been a while.  A very long while in fact.
 
 However I think I will resurrect this blog - I did wonder about quietly
 killing it and starting another rather than have the embarassment of an 18

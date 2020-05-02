@@ -87,7 +87,7 @@ incredible [Fedora](http://fedoraproject.org/) packagers.  This produces a
 completely usable RPM in the vast majority of cases.  A typical invocation
 (for me) looks like:-
 
-    
+
     $ cpanspec --follow --srpm SQL::Abstract
 
 
