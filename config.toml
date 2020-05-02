@@ -33,6 +33,9 @@ enableRobotsTXT = true
     url = "index.xml"
     weight = 5
 
+[permalinks]
+  posts = "/:year/:month/:day/:title/"
+
 [params]
   author = "Nigel Metheringham"
   description = "Things just aren't as easy as the guidebook said..."
