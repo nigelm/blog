@@ -113,7 +113,7 @@ handle returned data that is organised as an array of dictionaries.</p>
 <p>People have made use of this in the past - for example see <a href="https://community.home-assistant.io/t/sorting-rest-sensors-by-date/96786">this
 example</a>.
 However this makes multiple calls to the API, which is unfriendly, and relies
-on the API always returning its data in the same order in the arrya, which
+on the API always returning its data in the same order in the array, which
 appears to not be specified.</p>
 <h2 id="python-command-line-shim-for-home-assistant">Python Command Line Shim For Home Assistant</h2>
 <p>I decided it was better to put a shim in to pull the data from the API, do a
@@ -123,94 +123,92 @@ overall collection data around it.</p>
 <p>This shim can be found in the Github repository at
 <a href="https://github.com/nigelm/york_bin_collection">https://github.com/nigelm/york_bin_collection</a></p>
 <p>A sample of using it would look like:-</p>
-<pre><code>sensor:
-  # York Bins Collection API - 3 sets, 1 for each bin
-  - platform: command_line
-    command: /config/york_bin_collection.py 100050567115
-    name: Bin Collection
-    scan_interval: 86400
-    value_template: '{{ value_json.next_collection }}'
-    json_attributes:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">sensor</span>:
+  <span style="color:#75715e"># York Bins Collection API - 3 sets, 1 for each bin</span>
+  - <span style="color:#66d9ef">platform</span>: command_line
+    <span style="color:#66d9ef">command</span>: /config/york_bin_collection.py <span style="color:#ae81ff">100050567115</span>
+    <span style="color:#66d9ef">name</span>: Bin Collection
+    <span style="color:#66d9ef">scan_interval</span>: <span style="color:#ae81ff">86400</span>
+    <span style="color:#66d9ef">value_template</span>: <span style="color:#e6db74">&#39;{{ value_json.next_collection }}&#39;</span>
+    <span style="color:#66d9ef">json_attributes</span>:
       - next_collection
       - next_collection_types
       - blackbin
       - greenbin
       - box
       - updated
-</code></pre>
-<p>and this would return the date of the next collection as the main value -
+</code></pre></div><p>and this would return the date of the next collection as the main value -
 currently <code>2020-04-24</code> - and the state attributes (reported as YAML) then
 looks like:-</p>
-<pre><code>next_collection: '2020-04-24'
-next_collection_types:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">next_collection</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
+<span style="color:#66d9ef">next_collection_types</span>:
   - blackbin
-blackbin:
-  BinType: GREY 180
-  BinTypeDescription: Grey Bin 180L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 2
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: GREY BIN/SACK
-  CollectionTypeDescription: Grey Bin/Black Sack Collection
-  ImageName: blackbin
-  Locality: null
-  MaterialsCollected: General Domestic
-  NumberOfBins: '1'
-  WasteType: GREY BIN/SACK
-  WasteTypeDescription: Grey Bin/Black Sack Collection
-  last: '2020-04-10'
-  next: '2020-04-24'
-greenbin:
-  BinType: GREEN 180
-  BinTypeDescription: Green Bin 180L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 1
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: GREEN
-  CollectionTypeDescription: Green Collection
-  ImageName: greenbin
-  Locality: null
-  MaterialsCollected: Garden Waste
-  NumberOfBins: '1'
-  WasteType: GREEN
-  WasteTypeDescription: Green Collection
-  last: '2019-11-29'
-  next: null
-box:
-  BinType: BOX 55
-  BinTypeDescription: Box 55L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 1
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: KERBSIDE
-  CollectionTypeDescription: Kerbside Collection
-  ImageName: box
-  Locality: null
-  MaterialsCollected: 'Paper/Card : Plastic/Cans : Glass'
-  NumberOfBins: '3'
-  WasteType: KERBSIDE
-  WasteTypeDescription: Kerbside Collection
-  last: '2020-04-17'
-  next: '2020-05-01'
-updated: '2020-04-20 16:25:55.918518'
-friendly_name: Bin Collection
-</code></pre>
-<p>This data can then be used in other automations - thats what I am going to
+<span style="color:#66d9ef">blackbin</span>:
+  <span style="color:#66d9ef">BinType</span>: GREY <span style="color:#ae81ff">180</span>
+  <span style="color:#66d9ef">BinTypeDescription</span>: Grey Bin 180L
+  <span style="color:#66d9ef">CollectionDay</span>: FRI
+  <span style="color:#66d9ef">CollectionDayFull</span>: Friday
+  <span style="color:#66d9ef">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#66d9ef">CollectionFrequency</span>: Alternate Weeks
+  <span style="color:#66d9ef">CollectionFrequencyShort</span>: WEEK <span style="color:#ae81ff">2</span>
+  <span style="color:#66d9ef">CollectionPoint</span>: FRONT
+  <span style="color:#66d9ef">CollectionPointDescription</span>: Edge of Property at Front
+  <span style="color:#66d9ef">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">CollectionType</span>: GREY BIN/SACK
+  <span style="color:#66d9ef">CollectionTypeDescription</span>: Grey Bin/Black Sack Collection
+  <span style="color:#66d9ef">ImageName</span>: blackbin
+  <span style="color:#66d9ef">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">MaterialsCollected</span>: General Domestic
+  <span style="color:#66d9ef">NumberOfBins</span>: <span style="color:#e6db74">&#39;1&#39;</span>
+  <span style="color:#66d9ef">WasteType</span>: GREY BIN/SACK
+  <span style="color:#66d9ef">WasteTypeDescription</span>: Grey Bin/Black Sack Collection
+  <span style="color:#66d9ef">last</span>: <span style="color:#e6db74">&#39;2020-04-10&#39;</span>
+  <span style="color:#66d9ef">next</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
+<span style="color:#66d9ef">greenbin</span>:
+  <span style="color:#66d9ef">BinType</span>: GREEN <span style="color:#ae81ff">180</span>
+  <span style="color:#66d9ef">BinTypeDescription</span>: Green Bin 180L
+  <span style="color:#66d9ef">CollectionDay</span>: FRI
+  <span style="color:#66d9ef">CollectionDayFull</span>: Friday
+  <span style="color:#66d9ef">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#66d9ef">CollectionFrequency</span>: Alternate Weeks
+  <span style="color:#66d9ef">CollectionFrequencyShort</span>: WEEK <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">CollectionPoint</span>: FRONT
+  <span style="color:#66d9ef">CollectionPointDescription</span>: Edge of Property at Front
+  <span style="color:#66d9ef">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">CollectionType</span>: GREEN
+  <span style="color:#66d9ef">CollectionTypeDescription</span>: Green Collection
+  <span style="color:#66d9ef">ImageName</span>: greenbin
+  <span style="color:#66d9ef">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">MaterialsCollected</span>: Garden Waste
+  <span style="color:#66d9ef">NumberOfBins</span>: <span style="color:#e6db74">&#39;1&#39;</span>
+  <span style="color:#66d9ef">WasteType</span>: GREEN
+  <span style="color:#66d9ef">WasteTypeDescription</span>: Green Collection
+  <span style="color:#66d9ef">last</span>: <span style="color:#e6db74">&#39;2019-11-29&#39;</span>
+  <span style="color:#66d9ef">next</span>: <span style="color:#66d9ef">null</span>
+<span style="color:#66d9ef">box</span>:
+  <span style="color:#66d9ef">BinType</span>: BOX <span style="color:#ae81ff">55</span>
+  <span style="color:#66d9ef">BinTypeDescription</span>: Box 55L
+  <span style="color:#66d9ef">CollectionDay</span>: FRI
+  <span style="color:#66d9ef">CollectionDayFull</span>: Friday
+  <span style="color:#66d9ef">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#66d9ef">CollectionFrequency</span>: Alternate Weeks
+  <span style="color:#66d9ef">CollectionFrequencyShort</span>: WEEK <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">CollectionPoint</span>: FRONT
+  <span style="color:#66d9ef">CollectionPointDescription</span>: Edge of Property at Front
+  <span style="color:#66d9ef">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">CollectionType</span>: KERBSIDE
+  <span style="color:#66d9ef">CollectionTypeDescription</span>: Kerbside Collection
+  <span style="color:#66d9ef">ImageName</span>: box
+  <span style="color:#66d9ef">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#66d9ef">MaterialsCollected: &#39;Paper/Card : Plastic/Cans </span>: Glass<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">  NumberOfBins: &#39;</span><span style="color:#ae81ff">3</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">  WasteType: KERBSIDE
+</span><span style="color:#e6db74">  WasteTypeDescription: Kerbside Collection
+</span><span style="color:#e6db74">  last: &#39;</span><span style="color:#e6db74">2020-04-17</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">  next: &#39;</span><span style="color:#e6db74">2020-05-01</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">updated: &#39;</span><span style="color:#e6db74">2020-04-20 16:25:55.918518</span>&#39;
+<span style="color:#66d9ef">friendly_name</span>: Bin Collection
+</code></pre></div><p>This data can then be used in other automations - thats what I am going to
 look at next.</p>
 
     

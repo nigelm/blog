@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://blog.dotdot.cloud/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Nailing Jelly</title>
-    <link>https://blog.dotdot.cloud/categories/</link>
-    <description>Recent content in Categories on Nailing Jelly</description>
+    <title>YAML on Nailing Jelly</title>
+    <link>https://blog.dotdot.cloud/tags/yaml/</link>
+    <description>Recent content in YAML on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 03 May 2020 11:28:55 +0100</lastBuildDate>
-    <atom:link href="https://blog.dotdot.cloud/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.dotdot.cloud/tags/yaml/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Home Assistant - Bin Collection Display and Notification</title>
       <link>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</link>

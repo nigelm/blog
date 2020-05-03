@@ -7,8 +7,111 @@
     <description>Recent content in Tags on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 May 2020 19:50:53 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2020 11:28:55 +0100</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Home Assistant - Bin Collection Display and Notification</title>
+      <link>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</link>
+      <pubDate>Sun, 03 May 2020 11:28:55 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/&#34;&gt;Previously&lt;/a&gt; I had built a
+[&lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;shim&lt;/a&gt; to make it much easier
+[to import data from the [York Bin Collections
+&lt;a href=&#34;https://data.yorkopendata.org/dataset/waste-collection-lookup&#34;&gt;API&lt;/a&gt; into Home
+[Assistant&lt;/p&gt;
+&lt;p&gt;I am making use of this data in two ways:-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Making a display card in &lt;a href=&#34;https://www.home-assistant.io/lovelace/&#34;&gt;Lovelace&lt;/a&gt;
+to display information about the next bin collection.&lt;/li&gt;
+&lt;li&gt;Making a notification to prod me to put the right bins out.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lovelace-display&#34;&gt;Lovelace Display&lt;/h2&gt;
+&lt;p&gt;This is currently a prototype - and I need to spend more time on working out
+exactly what I want from the Home Assistant display - I may move to building a
+substantially minimised display for use with a spare Nook that I have - in a
+similar way to &lt;a href=&#34;https://shkspr.mobi/blog/2020/02/turn-an-old-ereader-into-an-information-screen-nook-str/&#34;&gt;Turn an old eReader into an Information Screen (Nook
+STR)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The display card looks like this &lt;img src=&#34;https://blog.dotdot.cloud/images/blog/2020/lovelace_bin_card.png&#34; alt=&#34;Lovelace Card&#34;&gt;&lt;/p&gt;
+&lt;p&gt;And this is the result of adding a &lt;a href=&#34;https://www.home-assistant.io/lovelace/markdown/&#34;&gt;Markdown
+card&lt;/a&gt;, setting the title to
+&lt;code&gt;Bin Collection&lt;/code&gt; and filling the card in with some content.   The overall YAML
+definition of the card (click the &lt;code&gt;Show Code Editor&lt;/code&gt; link on the card editor)
+is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;content&lt;/span&gt;: &amp;gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;   {% set bin = &amp;#39;sensor.bin_collection&amp;#39; %}&lt;/span&gt;
+   {% set nextdate = strptime(states(bin),&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;%Y-%m-%d&amp;#39;&lt;/span&gt;) %}
+
+  Next collection on {{ nextdate.strftime(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%A (%-d %B, %Y)  &amp;#34;&lt;/span&gt;) }} {%- if
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;blackbin&amp;#39;&lt;/span&gt; in state_attr(bin, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;) %}&amp;lt;ha-icon
+  icon=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mdi:delete&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %} {%- if &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;box&amp;#39;&lt;/span&gt; in state_attr(bin,
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;) %}&amp;lt;ha-icon icon=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mdi:recycle&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %}
+  {%- if &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;greenbin&amp;#39;&lt;/span&gt; in state_attr(bin, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;) %}&amp;lt;ha-icon
+  icon=&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mdi:pine-tree&amp;#34;&lt;/span&gt;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %}
+
+
+  Items collected:- {% for set in state_attr(bin, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;) %} {%
+  set thing = state_attr(bin, set) %}
+
+  - {{ thing.MaterialsCollected }} {% endfor %}
+&lt;span style=&#34;color:#66d9ef&#34;&gt;title&lt;/span&gt;: Bin Collection
+&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt;: markdown
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is &lt;em&gt;incredibly&lt;/em&gt; sensitive to initial spacing and indents&amp;hellip;&lt;/p&gt;
+&lt;p&gt;The first two lines of the content:-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{% set bin = &#39;sensor.bin_collection&#39; %}
+{% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;set the initial config up.&lt;/p&gt;
+&lt;p&gt;The next block outputs the next collection date in a reasonable format,
+followed by icons for the appropriate bin type(s) - this is rather complex in
+setting up the right icon to display.&lt;/p&gt;
+&lt;p&gt;The final chunk lists the types of material being collected this week - it
+iterates through the types of collection for this week, and pulls the
+information this collection into the &lt;code&gt;thing&lt;/code&gt; variable.  Thats then used to
+fill in the list elements.&lt;/p&gt;
+&lt;p&gt;This chunk may well be made more detailed in the future, but for now its a
+prototype, and theres a lot of other things than can be built on this should
+someone desire a different presentation.&lt;/p&gt;
+&lt;h2 id=&#34;bins-out-notification&#34;&gt;Bins Out Notification&lt;/h2&gt;
+&lt;p&gt;The intention here was to send a nudge, on the evening before the bins are
+collected, to remind me to put the appropriate bin out.&lt;/p&gt;
+&lt;p&gt;Notifications in Home Assistant are most easily handled by an
+&lt;a href=&#34;https://www.home-assistant.io/docs/automation/&#34;&gt;Automation&lt;/a&gt;. I tend to use
+&lt;a href=&#34;https://pushover.net/&#34;&gt;Pushover&lt;/a&gt; notifications, but there are various other
+&lt;a href=&#34;https://www.home-assistant.io/integrations/#notifications&#34;&gt;Home Assistant
+Notifcations&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The complete automation used looks like this:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#66d9ef&#34;&gt;id&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1588360498442&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;alias&lt;/span&gt;: Bin Day Tomorrow Notification
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;description&lt;/span&gt;: Tell me about bin day tomorrow
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;trigger&lt;/span&gt;:
+  - &lt;span style=&#34;color:#66d9ef&#34;&gt;at&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;19:15&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;platform&lt;/span&gt;: time
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;condition&lt;/span&gt;:
+  - &lt;span style=&#34;color:#66d9ef&#34;&gt;condition&lt;/span&gt;: template
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;value_template&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{ as_timestamp(now())+86400 &amp;gt; as_timestamp(states(&amp;#39;&amp;#39;sensor.bin_collection&amp;#39;&amp;#39;))
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      }}&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;action&lt;/span&gt;:
+  - &lt;span style=&#34;color:#66d9ef&#34;&gt;data_template&lt;/span&gt;:
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;message&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{% set bin = &amp;#39;&amp;#39;sensor.bin_collection&amp;#39;&amp;#39; %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        Items collected:- {% for set in state_attr(bin, &amp;#39;&amp;#39;next_collection_types&amp;#39;&amp;#39;)
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        %} {% set thing = state_attr(bin, set) %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        - {{ thing.MaterialsCollected }} {% endfor %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        &amp;#39;&lt;/span&gt;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;title&lt;/span&gt;: Bin Day Tomorrow - {{ &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;, &amp;#39;&lt;/span&gt;.join(state_attr(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;sensor.bin_collection&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;))
+        }}.
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;service&lt;/span&gt;: notify.pushover
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this is an automation that runs every day at 19:15 (the &lt;code&gt;trigger:&lt;/code&gt;
+section), with a condition to check if the collection is tomorrow (see if now
+as a Unix timestamp with 1 days worth of seconds added, is greater than the
+timestamp version of the bin collection date - this is in the &lt;code&gt;condition:&lt;/code&gt;
+section).&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;action:&lt;/code&gt; section calls up the Pushover notification with a message and
+title mostly based on the Lovelace card information shown above.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Minor Gardening</title>
       <link>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</link>
@@ -41,7 +144,7 @@ handle returned data that is organised as an array of dictionaries.&lt;/p&gt;
 &lt;p&gt;People have made use of this in the past - for example see &lt;a href=&#34;https://community.home-assistant.io/t/sorting-rest-sensors-by-date/96786&#34;&gt;this
 example&lt;/a&gt;.
 However this makes multiple calls to the API, which is unfriendly, and relies
-on the API always returning its data in the same order in the arrya, which
+on the API always returning its data in the same order in the array, which
 appears to not be specified.&lt;/p&gt;
 &lt;h2 id=&#34;python-command-line-shim-for-home-assistant&#34;&gt;Python Command Line Shim For Home Assistant&lt;/h2&gt;
 &lt;p&gt;I decided it was better to put a shim in to pull the data from the API, do a
@@ -51,94 +154,92 @@ overall collection data around it.&lt;/p&gt;
 &lt;p&gt;This shim can be found in the Github repository at
 &lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;https://github.com/nigelm/york_bin_collection&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;A sample of using it would look like:-&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;sensor:
-  # York Bins Collection API - 3 sets, 1 for each bin
-  - platform: command_line
-    command: /config/york_bin_collection.py 100050567115
-    name: Bin Collection
-    scan_interval: 86400
-    value_template: &#39;{{ value_json.next_collection }}&#39;
-    json_attributes:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;sensor&lt;/span&gt;:
+  &lt;span style=&#34;color:#75715e&#34;&gt;# York Bins Collection API - 3 sets, 1 for each bin&lt;/span&gt;
+  - &lt;span style=&#34;color:#66d9ef&#34;&gt;platform&lt;/span&gt;: command_line
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;command&lt;/span&gt;: /config/york_bin_collection.py &lt;span style=&#34;color:#ae81ff&#34;&gt;100050567115&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;name&lt;/span&gt;: Bin Collection
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;scan_interval&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;86400&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;value_template&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{ value_json.next_collection }}&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;json_attributes&lt;/span&gt;:
       - next_collection
       - next_collection_types
       - blackbin
       - greenbin
       - box
       - updated
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and this would return the date of the next collection as the main value -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and this would return the date of the next collection as the main value -
 currently &lt;code&gt;2020-04-24&lt;/code&gt; - and the state attributes (reported as YAML) then
 looks like:-&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;next_collection: &#39;2020-04-24&#39;
-next_collection_types:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;next_collection&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;next_collection_types&lt;/span&gt;:
   - blackbin
-blackbin:
-  BinType: GREY 180
-  BinTypeDescription: Grey Bin 180L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 2
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: GREY BIN/SACK
-  CollectionTypeDescription: Grey Bin/Black Sack Collection
-  ImageName: blackbin
-  Locality: null
-  MaterialsCollected: General Domestic
-  NumberOfBins: &#39;1&#39;
-  WasteType: GREY BIN/SACK
-  WasteTypeDescription: Grey Bin/Black Sack Collection
-  last: &#39;2020-04-10&#39;
-  next: &#39;2020-04-24&#39;
-greenbin:
-  BinType: GREEN 180
-  BinTypeDescription: Green Bin 180L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 1
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: GREEN
-  CollectionTypeDescription: Green Collection
-  ImageName: greenbin
-  Locality: null
-  MaterialsCollected: Garden Waste
-  NumberOfBins: &#39;1&#39;
-  WasteType: GREEN
-  WasteTypeDescription: Green Collection
-  last: &#39;2019-11-29&#39;
-  next: null
-box:
-  BinType: BOX 55
-  BinTypeDescription: Box 55L
-  CollectionDay: FRI
-  CollectionDayFull: Friday
-  CollectionDayOfWeek: 5
-  CollectionFrequency: Alternate Weeks
-  CollectionFrequencyShort: WEEK 1
-  CollectionPoint: FRONT
-  CollectionPointDescription: Edge of Property at Front
-  CollectionPointLocation: null
-  CollectionType: KERBSIDE
-  CollectionTypeDescription: Kerbside Collection
-  ImageName: box
-  Locality: null
-  MaterialsCollected: &#39;Paper/Card : Plastic/Cans : Glass&#39;
-  NumberOfBins: &#39;3&#39;
-  WasteType: KERBSIDE
-  WasteTypeDescription: Kerbside Collection
-  last: &#39;2020-04-17&#39;
-  next: &#39;2020-05-01&#39;
-updated: &#39;2020-04-20 16:25:55.918518&#39;
-friendly_name: Bin Collection
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This data can then be used in other automations - thats what I am going to
+&lt;span style=&#34;color:#66d9ef&#34;&gt;blackbin&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinType&lt;/span&gt;: GREY &lt;span style=&#34;color:#ae81ff&#34;&gt;180&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinTypeDescription&lt;/span&gt;: Grey Bin 180L
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDay&lt;/span&gt;: FRI
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayFull&lt;/span&gt;: Friday
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequency&lt;/span&gt;: Alternate Weeks
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: WEEK &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPoint&lt;/span&gt;: FRONT
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointDescription&lt;/span&gt;: Edge of Property at Front
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionType&lt;/span&gt;: GREY BIN/SACK
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionTypeDescription&lt;/span&gt;: Grey Bin/Black Sack Collection
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;ImageName&lt;/span&gt;: blackbin
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;MaterialsCollected&lt;/span&gt;: General Domestic
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;NumberOfBins&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;WasteType&lt;/span&gt;: GREY BIN/SACK
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;WasteTypeDescription&lt;/span&gt;: Grey Bin/Black Sack Collection
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;last&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-10&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;next&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;greenbin&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinType&lt;/span&gt;: GREEN &lt;span style=&#34;color:#ae81ff&#34;&gt;180&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinTypeDescription&lt;/span&gt;: Green Bin 180L
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDay&lt;/span&gt;: FRI
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayFull&lt;/span&gt;: Friday
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequency&lt;/span&gt;: Alternate Weeks
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: WEEK &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPoint&lt;/span&gt;: FRONT
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointDescription&lt;/span&gt;: Edge of Property at Front
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionType&lt;/span&gt;: GREEN
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionTypeDescription&lt;/span&gt;: Green Collection
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;ImageName&lt;/span&gt;: greenbin
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;MaterialsCollected&lt;/span&gt;: Garden Waste
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;NumberOfBins&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;WasteType&lt;/span&gt;: GREEN
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;WasteTypeDescription&lt;/span&gt;: Green Collection
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;last&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2019-11-29&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;next&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;box&lt;/span&gt;:
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinType&lt;/span&gt;: BOX &lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;BinTypeDescription&lt;/span&gt;: Box 55L
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDay&lt;/span&gt;: FRI
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayFull&lt;/span&gt;: Friday
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequency&lt;/span&gt;: Alternate Weeks
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: WEEK &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPoint&lt;/span&gt;: FRONT
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointDescription&lt;/span&gt;: Edge of Property at Front
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionType&lt;/span&gt;: KERBSIDE
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;CollectionTypeDescription&lt;/span&gt;: Kerbside Collection
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;ImageName&lt;/span&gt;: box
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;MaterialsCollected: &amp;#39;Paper/Card : Plastic/Cans &lt;/span&gt;: Glass&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  NumberOfBins: &amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  WasteType: KERBSIDE
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  WasteTypeDescription: Kerbside Collection
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  last: &amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;2020-04-17&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  next: &amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;2020-05-01&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;updated: &amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;2020-04-20 16:25:55.918518&lt;/span&gt;&amp;#39;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;friendly_name&lt;/span&gt;: Bin Collection
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This data can then be used in other automations - thats what I am going to
 look at next.&lt;/p&gt;
 </description>
     </item>
