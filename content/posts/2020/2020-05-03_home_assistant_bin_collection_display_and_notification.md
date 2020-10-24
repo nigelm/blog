@@ -12,10 +12,10 @@ tags:
 ---
 
 [Previously](/2020/04/20/york-bins-api-and-home-assistant/) I had built a
-[[shim](https://github.com/nigelm/york_bin_collection) to make it much easier
-[to import data from the [York Bin Collections
-[API](https://data.yorkopendata.org/dataset/waste-collection-lookup) into Home
-[Assistant
+[shim](https://github.com/nigelm/york_bin_collection) to make it much easier
+to import data from the [York Bin Collections
+API](https://data.yorkopendata.org/dataset/waste-collection-lookup) into [Home
+Assistant](https://www.home-assistant.io/)
 
 I am making use of this data in two ways:-
 
