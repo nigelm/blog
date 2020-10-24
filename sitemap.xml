@@ -38,6 +38,11 @@
   </url>
   
   <url>
+    <loc>https://blog.dotdot.cloud/</loc>
+    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.dotdot.cloud/posts/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url>
@@ -209,11 +214,6 @@
   
   <url>
     <loc>https://blog.dotdot.cloud/about/</loc>
-    <lastmod>2009-02-02T12:25:41+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/</loc>
     <lastmod>2009-02-02T12:25:41+00:00</lastmod>
   </url>
   

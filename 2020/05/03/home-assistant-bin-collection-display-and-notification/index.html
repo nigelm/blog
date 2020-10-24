@@ -8,7 +8,7 @@
 
 
   
-    <meta name="description" content="Previously I had built a [shim to make it much easier [to import data from the [York Bin Collections API into Home [Assistant
+    <meta name="description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
 I am making use of this data in two ways:-
  Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)">
   
@@ -23,13 +23,13 @@ I am making use of this data in two ways:-
 <meta name="twitter:image" content="https://blog.dotdot.cloud/images/og-featured.png"/>
 
 <meta name="twitter:title" content="Home Assistant - Bin Collection Display and Notification"/>
-<meta name="twitter:description" content="Previously I had built a [shim to make it much easier [to import data from the [York Bin Collections API into Home [Assistant
+<meta name="twitter:description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
 I am making use of this data in two ways:-
  Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)"/>
 
 
 
-<meta name="generator" content="Hugo 0.69.0" />
+<meta name="generator" content="Hugo 0.75.1" />
   <title>Home Assistant - Bin Collection Display and Notification | Nailing Jelly</title>
   <link rel="canonical" href="/2020/05/03/home-assistant-bin-collection-display-and-notification/">
 
@@ -99,10 +99,10 @@ I am making use of this data in two ways:-
   
 </header>
     <p><a href="/2020/04/20/york-bins-api-and-home-assistant/">Previously</a> I had built a
-[<a href="https://github.com/nigelm/york_bin_collection">shim</a> to make it much easier
-[to import data from the [York Bin Collections
-<a href="https://data.yorkopendata.org/dataset/waste-collection-lookup">API</a> into Home
-[Assistant</p>
+<a href="https://github.com/nigelm/york_bin_collection">shim</a> to make it much easier
+to import data from the <a href="https://data.yorkopendata.org/dataset/waste-collection-lookup">York Bin Collections
+API</a> into <a href="https://www.home-assistant.io/">Home
+Assistant</a></p>
 <p>I am making use of this data in two ways:-</p>
 <ul>
 <li>Making a display card in <a href="https://www.home-assistant.io/lovelace/">Lovelace</a>
@@ -121,24 +121,24 @@ card</a>, setting the title to
 <code>Bin Collection</code> and filling the card in with some content.   The overall YAML
 definition of the card (click the <code>Show Code Editor</code> link on the card editor)
 is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">content</span>: &gt;<span style="color:#ae81ff">2</span><span style="color:#e6db74">-
-</span><span style="color:#e6db74">   {% set bin = &#39;sensor.bin_collection&#39; %}</span>
-   {% set nextdate = strptime(states(bin),<span style="color:#e6db74">&#39;%Y-%m-%d&#39;</span>) %}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
+   {<span style="color:#ae81ff">% set bin = &#39;sensor.bin_collection&#39; %}</span>
+   {<span style="color:#ae81ff">% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}</span>
 
-  Next collection on {{ nextdate.strftime(<span style="color:#e6db74">&#34;%A (%-d %B, %Y)  &#34;</span>) }} {%- if
-  <span style="color:#e6db74">&#39;blackbin&#39;</span> in state_attr(bin, <span style="color:#e6db74">&#39;next_collection_types&#39;</span>) %}&lt;ha-icon
-  icon=<span style="color:#e6db74">&#34;mdi:delete&#34;</span>&gt;&lt;/ha-icon&gt;{% endif %} {%- if <span style="color:#e6db74">&#39;box&#39;</span> in state_attr(bin,
-  <span style="color:#e6db74">&#39;next_collection_types&#39;</span>) %}&lt;ha-icon icon=<span style="color:#e6db74">&#34;mdi:recycle&#34;</span>&gt;&lt;/ha-icon&gt;{% endif %}
-  {%- if <span style="color:#e6db74">&#39;greenbin&#39;</span> in state_attr(bin, <span style="color:#e6db74">&#39;next_collection_types&#39;</span>) %}&lt;ha-icon
-  icon=<span style="color:#e6db74">&#34;mdi:pine-tree&#34;</span>&gt;&lt;/ha-icon&gt;{% endif %}
+  <span style="color:#ae81ff">Next collection on {{ nextdate.strftime(&#34;%A (%-d %B, %Y)  &#34;) }} {%- if</span>
+  <span style="color:#e6db74">&#39;blackbin&#39;</span> <span style="color:#ae81ff">in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+  <span style="color:#ae81ff">icon=&#34;mdi:delete&#34;&gt;&lt;/ha-icon&gt;{% endif %} {%- if &#39;box&#39; in state_attr(bin,</span>
+  <span style="color:#e6db74">&#39;next_collection_types&#39;</span><span style="color:#ae81ff">) %}&lt;ha-icon icon=&#34;mdi:recycle&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
+  {<span style="color:#ae81ff">%- if &#39;greenbin&#39; in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+  <span style="color:#ae81ff">icon=&#34;mdi:pine-tree&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
 
 
-  Items collected:- {% for set in state_attr(bin, <span style="color:#e6db74">&#39;next_collection_types&#39;</span>) %} {%
-  set thing = state_attr(bin, set) %}
+  <span style="color:#ae81ff">Items collected:- {% for set in state_attr(bin, &#39;next_collection_types&#39;) %} {%</span>
+  <span style="color:#ae81ff">set thing = state_attr(bin, set) %}</span>
 
-  - {{ thing.MaterialsCollected }} {% endfor %}
-<span style="color:#66d9ef">title</span>: Bin Collection
-<span style="color:#66d9ef">type</span>: markdown
+  - {{ <span style="color:#ae81ff">thing.MaterialsCollected }} {% endfor %}</span>
+<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Collection</span>
+<span style="color:#f92672">type</span>: <span style="color:#ae81ff">markdown</span>
 </code></pre></div><p>It is <em>incredibly</em> sensitive to initial spacing and indents&hellip;</p>
 <p>The first two lines of the content:-</p>
 <pre><code>{% set bin = 'sensor.bin_collection' %}
@@ -164,19 +164,19 @@ collected, to remind me to put the appropriate bin out.</p>
 <a href="https://www.home-assistant.io/integrations/#notifications">Home Assistant
 Notifcations</a>.</p>
 <p>The complete automation used looks like this:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#66d9ef">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
-  <span style="color:#66d9ef">alias</span>: Bin Day Tomorrow Notification
-  <span style="color:#66d9ef">description</span>: Tell me about bin day tomorrow
-  <span style="color:#66d9ef">trigger</span>:
-  - <span style="color:#66d9ef">at</span>: <span style="color:#e6db74">&#39;19:15&#39;</span>
-    <span style="color:#66d9ef">platform</span>: time
-  <span style="color:#66d9ef">condition</span>:
-  - <span style="color:#66d9ef">condition</span>: template
-    <span style="color:#66d9ef">value_template</span>: <span style="color:#e6db74">&#39;{{ as_timestamp(now())+86400 &gt; as_timestamp(states(&#39;&#39;sensor.bin_collection&#39;&#39;))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
+  <span style="color:#f92672">alias</span>: <span style="color:#ae81ff">Bin Day Tomorrow Notification</span>
+  <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Tell me about bin day tomorrow</span>
+  <span style="color:#f92672">trigger</span>:
+  - <span style="color:#f92672">at</span>: <span style="color:#e6db74">&#39;19:15&#39;</span>
+    <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">time</span>
+  <span style="color:#f92672">condition</span>:
+  - <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">template</span>
+    <span style="color:#f92672">value_template</span>: <span style="color:#e6db74">&#39;{{ as_timestamp(now())+86400 &gt; as_timestamp(states(&#39;&#39;sensor.bin_collection&#39;&#39;))
 </span><span style="color:#e6db74">      }}&#39;</span>
-  <span style="color:#66d9ef">action</span>:
-  - <span style="color:#66d9ef">data_template</span>:
-      <span style="color:#66d9ef">message</span>: <span style="color:#e6db74">&#39;{% set bin = &#39;&#39;sensor.bin_collection&#39;&#39; %}
+  <span style="color:#f92672">action</span>:
+  - <span style="color:#f92672">data_template</span>:
+      <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#39;{% set bin = &#39;&#39;sensor.bin_collection&#39;&#39; %}
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">        Items collected:- {% for set in state_attr(bin, &#39;&#39;next_collection_types&#39;&#39;)
 </span><span style="color:#e6db74">        %} {% set thing = state_attr(bin, set) %}
@@ -184,9 +184,9 @@ Notifcations</a>.</p>
 </span><span style="color:#e6db74">        - {{ thing.MaterialsCollected }} {% endfor %}
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">        &#39;</span>
-      <span style="color:#66d9ef">title</span>: Bin Day Tomorrow - {{ <span style="color:#e6db74">&#39;, &#39;</span>.join(state_attr(<span style="color:#e6db74">&#39;sensor.bin_collection&#39;</span>, <span style="color:#e6db74">&#39;next_collection_types&#39;</span>))
-        }}.
-    <span style="color:#66d9ef">service</span>: notify.pushover
+      <span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Day Tomorrow - {{ &#39;, &#39;.join(state_attr(&#39;sensor.bin_collection&#39;, &#39;next_collection_types&#39;))</span>
+        }}<span style="color:#ae81ff">.</span>
+    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">notify.pushover</span>
 </code></pre></div><p>So this is an automation that runs every day at 19:15 (the <code>trigger:</code>
 section), with a condition to check if the collection is tomorrow (see if now
 as a Unix timestamp with 1 days worth of seconds added, is greater than the
@@ -212,11 +212,11 @@ title mostly based on the Lovelace card information shown above.</p>
         <ul class="Tags">
           
             <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/categories/2020/" rel="tag">2020</a>
+              <a class="Tags-link u-clickable" href="/categories/blog/" rel="tag">Blog</a>
             </li>
           
             <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/categories/blog/" rel="tag">Blog</a>
+              <a class="Tags-link u-clickable" href="/categories/2020/" rel="tag">2020</a>
             </li>
           
         </ul>
@@ -224,10 +224,6 @@ title mostly based on the Lovelace card information shown above.</p>
     
       
         <ul class="Tags">
-          
-            <li class="Tags-item u-background">
-              <a class="Tags-link u-clickable" href="/tags/api/" rel="tag">API</a>
-            </li>
           
             <li class="Tags-item u-background">
               <a class="Tags-link u-clickable" href="/tags/home-assistant/" rel="tag">Home-Assistant</a>
@@ -239,6 +235,10 @@ title mostly based on the Lovelace card information shown above.</p>
           
             <li class="Tags-item u-background">
               <a class="Tags-link u-clickable" href="/tags/yaml/" rel="tag">YAML</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/api/" rel="tag">API</a>
             </li>
           
         </ul>
