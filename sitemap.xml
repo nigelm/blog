@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.dotdot.cloud/</loc>
+    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/posts/</loc>
+    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</loc>
+    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.dotdot.cloud/categories/2020/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url>
@@ -34,16 +49,6 @@
   
   <url>
     <loc>https://blog.dotdot.cloud/tags/jinja2/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.dotdot.cloud/posts/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url>
   

@@ -7,8 +7,113 @@
     <description>Recent content in Posts on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 May 2020 11:28:55 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2020 17:47:31 +0100</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python Development Environments</title>
+      <link>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</link>
+      <pubDate>Sat, 24 Oct 2020 17:47:31 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</guid>
+      <description>&lt;p&gt;I have spent a substantial number of years mostly programming in
+&lt;a href=&#34;https://www.perl.org/&#34;&gt;Perl&lt;/a&gt;, but this year I have been working on a team
+that has a strong preference for &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; and so I
+have converted across.&lt;/p&gt;
+&lt;p&gt;Previously I have dabbled in Python - I could read basic python, and had
+patched various things - mainly &lt;a href=&#34;https://www.ansible.com/&#34;&gt;Ansible&lt;/a&gt; - in the
+past, but had not done any serious work in the language.&lt;/p&gt;
+&lt;p&gt;However its not the transfer to the language thats caused most of the
+headaches, but other things surrounding that - for example:-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Development environment&lt;/li&gt;
+&lt;li&gt;Formatting, checking, rules for how things go into git&lt;/li&gt;
+&lt;li&gt;Documentation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We don&amp;rsquo;t have much in the way of stated rules for these, and despite Python
+being much more about there being one right way to do things, in terms of
+overall development environments it all appears that there is a huge variety
+of ways that people do stuff&amp;hellip;&lt;/p&gt;
+&lt;p&gt;So this is what I am now moving to for things I am working on&amp;hellip;&lt;/p&gt;
+&lt;h2 id=&#34;development-environment&#34;&gt;Development Environment&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://python-poetry.org/&#34;&gt;Poetry&lt;/a&gt;.  This brings together management
+of virtual environments, dependency lists etc as well as distribution builds
+and pushing of packages to pypi or to a local repository.&lt;/p&gt;
+&lt;p&gt;The downside is that you tend to have to run things by &lt;code&gt;poetry run cmd...&lt;/code&gt;,
+but I mostly set that up in a Makefile to deal with that.   Additionally at
+present the cost of running builds and deploys in CI is bloated by the
+additional time to install poetry - I may build myself an appropriate Docker
+image to ameliorate that.&lt;/p&gt;
+&lt;p&gt;The Makefile I add is hand crafted - mostly cargo-culted from that last thing
+I did - but I now use the &lt;a href=&#34;https://www.freecodecamp.org/news/self-documenting-makefile/&#34;&gt;self documenting Makefile
+trick&lt;/a&gt; to add a
+set of help to the Makefile.&lt;/p&gt;
+&lt;p&gt;Version number handling is managed by
+&lt;a href=&#34;https://github.com/c4urself/bump2version&#34;&gt;bump2version&lt;/a&gt; - using that to
+rewrite the poetry version tag as well as updating the information within the
+package &lt;code&gt;__init__.py&lt;/code&gt; file (yes this may well be superfluous but the
+alternatives appear to require loading additional modules just to find your
+own version number).  Additionally I found a hack this last week to make
+&lt;code&gt;bump2version&lt;/code&gt; update the &lt;code&gt;CHANGELOG.md&lt;/code&gt; file by using the alternate methods
+of Markdown formatting (otherwise the &lt;code&gt;#&lt;/code&gt; header markers cause the
+&lt;code&gt;bump2version&lt;/code&gt; config file to ignore the lines as a comment).&lt;/p&gt;
+&lt;p&gt;So in &amp;lsquo;.bumpversion.cfg&amp;rsquo; you have:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;[bumpversion:file:CHANGELOG.md]&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;search&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [{new_version}] - {now:%Y-%m-%d}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        --------------------&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and in &lt;code&gt;CHANGELOG.md&lt;/code&gt; you have:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;Unreleased Changes
+------------------
+
+&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;-&lt;/span&gt; last commit changelog entry
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pre-commit-formatting--checking&#34;&gt;Pre-Commit Formatting / Checking&lt;/h2&gt;
+&lt;p&gt;I have a &lt;code&gt;.pre-commit-config.yaml&lt;/code&gt; file in each repository - mostly exactly
+the same, but with some per-project tweaks.  I run
+&lt;a href=&#34;https://pre-commit.com/&#34;&gt;&lt;code&gt;pre-commit&lt;/code&gt;&lt;/a&gt; prior to each commit - mostly not
+currently enforced by actually adding it to git hooks, although I may change
+that as I did previously have a set of hooks set up by
+&lt;a href=&#34;https://github.com/git-hooks/git-hooks&#34;&gt;git-hooks&lt;/a&gt; to run the perl
+&lt;a href=&#34;https://metacpan.org/release/Code-TidyAll&#34;&gt;TidyAll&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A sample &lt;code&gt;.pre-commit-config.yaml&lt;/code&gt; file can be found
+&lt;a href=&#34;https://github.com/nigelm/ssh2_parse_key/blob/master/.pre-commit-config.yaml&#34;&gt;here&lt;/a&gt;,
+but in general I am running a set of checks including the &lt;a href=&#34;https://github.com/psf/black&#34;&gt;black
+formatter&lt;/a&gt;, flake8 and mypy.&lt;/p&gt;
+&lt;p&gt;In terms of git management I currently tend to work in
+&lt;a href=&#34;https://git-fork.com/&#34;&gt;Fork&lt;/a&gt; having previously used
+&lt;a href=&#34;https://www.git-tower.com/&#34;&gt;Tower&lt;/a&gt; for many years (Tower is likely a bit more
+powerful and slick, but it now costs more per year than Fork does outright -
+although I hope that Fork will not regret going for a one off cost model).&lt;/p&gt;
+&lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
+&lt;p&gt;Documentation is another thing that seems odd regarding python - there is the
+start of a standard workflow defined with docstrings etc, and then things go a
+bit freestyle.  I have to say I am not very keen on reStructuredText, and
+Sphinx felt opaque to me - and then you hit several different API
+documentation mechanisms, many of which appear to be machine rather than human
+readable.  This is one of the areas where the Perl simple but consistant
+documentation setup works better - although the python side does pull more
+introspection information out of the code.&lt;/p&gt;
+&lt;p&gt;So I have settled on one I like (so far - only been working in this for a few
+weeks) and that appears to work well with my other tools.&lt;/p&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://www.mkdocs.org/&#34;&gt;MkDocs&lt;/a&gt;.  With that I have been using the
+&lt;a href=&#34;https://squidfunk.github.io/mkdocs-material/&#34;&gt;Material for MkDocs&lt;/a&gt; theme.
+Stacked on top of that are the
+&lt;a href=&#34;https://github.com/DataDog/mkdocs-click&#34;&gt;&lt;code&gt;mkdocs-click&lt;/code&gt;&lt;/a&gt; extension for CLI
+tools, and &lt;a href=&#34;https://github.com/pawamoy/mkdocstrings&#34;&gt;&lt;code&gt;mkdocstrings&lt;/code&gt;&lt;/a&gt; for API
+documentation.&lt;/p&gt;
+&lt;p&gt;There is one little problem with the pipeline above in that &lt;code&gt;mkdocs-click&lt;/code&gt; and
+&lt;code&gt;mkdocstrings&lt;/code&gt; use different function signature markup - this is something I
+mean to have a look at in the future.&lt;/p&gt;
+&lt;h2 id=&#34;ci-etc&#34;&gt;CI etc&lt;/h2&gt;
+&lt;p&gt;The CI workflow varies not least because I release some things on
+&lt;a href=&#34;https://github.com&#34;&gt;Github&lt;/a&gt; using &lt;a href=&#34;https://travis-ci.org/&#34;&gt;Travis CI&lt;/a&gt;, and
+other things are handled by an internal &lt;a href=&#34;https://about.gitlab.com/&#34;&gt;GitLab&lt;/a&gt;
+instance using GitLab CI.  However in both cases I have got a fairly standard
+test, release and build documentation workflow with the artifacts going to the
+appropriate repo and documentation going to Github/GitLab Pages.&lt;/p&gt;
+&lt;p&gt;I am not currently doing a lot of additional multi-version testing with &lt;code&gt;tox&lt;/code&gt; etc.  I may move to this later, but am trying to take this a step at a time.&lt;/p&gt;
+</description>
+    </item>
     <item>
       <title>Home Assistant - Bin Collection Display and Notification</title>
       <link>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</link>
