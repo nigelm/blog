@@ -1,7 +1,6 @@
 ---
 title: "Python Development Environments"
 date: 2020-10-24T17:47:31+01:00
-draft: true
 ---
 
 I have spent a substantial number of years mostly programming in
