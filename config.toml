@@ -1,7 +1,7 @@
 baseurl = "https://blog.dotdot.cloud/"
 languageCode = "en-us"
 title = "Nailing Jelly"
-theme =  "hugo-flex"
+theme =  "hugo-nailed-jelly"
 paginate =  10
 pygmentsCodeFences = true
 enableRobotsTXT = true
