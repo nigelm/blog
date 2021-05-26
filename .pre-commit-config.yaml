@@ -1,13 +1,34 @@
 # Initial content coming from
 # https://github.com/pre-commit/pre-commit-hooks/blob/master/.pre-commit-config.yaml
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-json
-    -   id: check-added-large-files
-    -   id: check-yaml
+      - id: trailing-whitespace
+        exclude: .gitignore
+      - id: end-of-file-fixer
+      - id: check-json
+      - id: check-added-large-files
+      - id: check-yaml
+        args: ['--unsafe']
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: file-contents-sorter
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+        exclude: .gitignore
+      - id: pretty-format-json
+        args: ['--autofix']
+      - id: sort-simple-yaml
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.27.1  # or specific git tag
+    hooks:
+      - id: markdownlint
 
 # end
