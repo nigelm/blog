@@ -1,6 +1,11 @@
 ---
 title: "Python Development Environments"
 date: 2020-10-24T17:47:31+01:00
+categories:
+  - Blog
+  - 2020
+tags:
+  - Python
 ---
 
 I have spent a substantial number of years mostly programming in

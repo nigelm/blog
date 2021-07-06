@@ -1,6 +1,13 @@
 ---
 title: "Freeserve - How We Built The System"
 date: 2021-07-06T00:00:00+01:00
+categories:
+  - Blog
+  - 2020
+tags:
+  - Freeserve
+  - ISP
+  - History
 ---
 > “Success has many fathers, but failure is an orphan”
 
