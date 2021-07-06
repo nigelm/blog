@@ -1,340 +1,209 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
+    <loc>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://blog.dotdot.cloud/</loc>
-    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://blog.dotdot.cloud/posts/</loc>
-    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</loc>
     <lastmod>2020-10-24T17:47:31+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/2020/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/api/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/blog/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/home-assistant/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/jinja2/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/yaml/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/meta/</loc>
     <lastmod>2020-05-02T19:50:53+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</loc>
     <lastmod>2020-05-02T19:50:53+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/tags/python/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</loc>
     <lastmod>2020-04-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/ramblings/</loc>
     <lastmod>2015-05-31T09:02:22+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2015/05/31/what-a-long-gap/</loc>
     <lastmod>2015-05-31T09:02:22+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/12/08/pantomime-this-year-with-comedy-stage-manager-on-crutches/</loc>
     <lastmod>2009-12-08T12:39:59+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/theatre/</loc>
     <lastmod>2009-12-08T12:39:59+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/10/12/you-got-what/</loc>
     <lastmod>2009-10-12T15:53:01+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/politics/</loc>
     <lastmod>2009-10-07T13:46:19+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/10/07/politics-just-the-same-old-same-old/</loc>
     <lastmod>2009-10-07T13:46:19+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/rant/</loc>
     <lastmod>2009-10-07T13:46:19+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/09/04/sqlabstract-boolean-support/</loc>
     <lastmod>2009-09-04T16:05:34+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/06/03/cpan-rpm-packaging/</loc>
     <lastmod>2009-06-03T19:52:01+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/perl/</loc>
     <lastmod>2009-06-03T19:52:01+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/06/01/xml-processing/</loc>
     <lastmod>2009-06-01T20:56:05+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/05/11/extending-sqlabstract/</loc>
     <lastmod>2009-05-11T19:48:28+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/05/03/theatre-management-with-perl-1/</loc>
     <lastmod>2009-05-03T21:24:39+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/04/29/gadget-drooling/</loc>
     <lastmod>2009-04-29T20:39:21+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/04/27/enlightened-ironman/</loc>
     <lastmod>2009-04-27T12:37:11+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/04/24/non-smokin/</loc>
     <lastmod>2009-04-24T11:35:56+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/smoke/</loc>
     <lastmod>2009-04-24T11:35:56+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/embarassing/</loc>
     <lastmod>2009-04-18T19:43:56+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/04/18/smokin/</loc>
     <lastmod>2009-04-18T19:43:56+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/04/09/so-what-happened/</loc>
     <lastmod>2009-04-09T11:24:35+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/02/04/bletchley-park/</loc>
     <lastmod>2009-02-04T12:30:19+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/history/</loc>
     <lastmod>2009-02-04T12:30:19+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/02/02/favourite-stock-photo-of-the-year-to-date/</loc>
     <lastmod>2009-02-02T22:30:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/meta/</loc>
     <lastmod>2009-02-02T12:49:10+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/02/02/relocation/</loc>
     <lastmod>2009-02-02T12:49:10+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/about/</loc>
     <lastmod>2009-02-02T12:25:41+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/01/31/theatrical-going-ons/</loc>
     <lastmod>2009-01-31T22:44:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2009/01/30/the-return/</loc>
     <lastmod>2009-01-30T22:06:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/06/10/still-tired/</loc>
     <lastmod>2007-06-10T21:06:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/06/02/more-bees/</loc>
     <lastmod>2007-06-02T21:25:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/mac/</loc>
     <lastmod>2007-05-09T21:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/05/09/not-happy-mac/</loc>
     <lastmod>2007-05-09T21:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/sad/</loc>
     <lastmod>2007-05-09T21:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/05/08/whats-the-point-of-newsforge/</loc>
     <lastmod>2007-05-08T09:16:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/05/06/good-news/</loc>
     <lastmod>2007-05-06T16:23:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/band/</loc>
     <lastmod>2007-05-06T07:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/05/06/of-bands-and-bums/</loc>
     <lastmod>2007-05-06T07:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/wasp/</loc>
     <lastmod>2007-05-06T07:58:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/04/23/of-browsers-and-software/</loc>
     <lastmod>2007-04-23T19:33:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/04/23/theatrical-matters/</loc>
     <lastmod>2007-04-23T19:29:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/kvetching/</loc>
     <lastmod>2007-04-13T08:11:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/04/13/mini-summit/</loc>
     <lastmod>2007-04-13T08:11:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/pendanty/</loc>
     <lastmod>2007-04-13T08:11:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/03/31/virtualisation/</loc>
     <lastmod>2007-03-31T09:27:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/vm/</loc>
     <lastmod>2007-03-31T09:27:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/vmware/</loc>
     <lastmod>2007-03-31T09:27:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/xen/</loc>
     <lastmod>2007-03-31T09:27:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/categories/email/</loc>
     <lastmod>2007-03-27T11:28:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2007/03/27/handling-mail/</loc>
     <lastmod>2007-03-27T11:28:00+00:00</lastmod>
   </url>
-  
 </urlset>
