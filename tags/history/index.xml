@@ -2,13 +2,13 @@
 <?xml-stylesheet type="text/xsl" href="https://blog.dotdot.cloud/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>2020 on Nailing Jelly</title>
-    <link>https://blog.dotdot.cloud/categories/2020/</link>
-    <description>Recent content in 2020 on Nailing Jelly</description>
+    <title>History on Nailing Jelly</title>
+    <link>https://blog.dotdot.cloud/tags/history/</link>
+    <description>Recent content in History on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 06 Jul 2021 00:00:00 +0100</lastBuildDate>
-    <atom:link href="https://blog.dotdot.cloud/categories/2020/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.dotdot.cloud/tags/history/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Freeserve - How We Built The System</title>
       <link>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</link>

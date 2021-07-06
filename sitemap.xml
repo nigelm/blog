@@ -2,7 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.dotdot.cloud/categories/2020/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/categories/blog/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/categories/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/tags/freeserve/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/tags/history/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/tags/isp/</loc>
     <lastmod>2021-07-06T00:00:00+01:00</lastmod>
   </url><url>
     <loc>https://blog.dotdot.cloud/</loc>
@@ -11,19 +29,16 @@
     <loc>https://blog.dotdot.cloud/posts/</loc>
     <lastmod>2021-07-06T00:00:00+01:00</lastmod>
   </url><url>
+    <loc>https://blog.dotdot.cloud/tags/</loc>
+    <lastmod>2021-07-06T00:00:00+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.dotdot.cloud/tags/python/</loc>
+    <lastmod>2020-10-24T17:47:31+01:00</lastmod>
+  </url><url>
     <loc>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</loc>
     <lastmod>2020-10-24T17:47:31+01:00</lastmod>
   </url><url>
-    <loc>https://blog.dotdot.cloud/categories/2020/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url><url>
     <loc>https://blog.dotdot.cloud/tags/api/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.dotdot.cloud/categories/blog/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.dotdot.cloud/categories/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url><url>
     <loc>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</loc>
@@ -35,9 +50,6 @@
     <loc>https://blog.dotdot.cloud/tags/jinja2/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url><url>
-    <loc>https://blog.dotdot.cloud/tags/</loc>
-    <lastmod>2020-05-03T11:28:55+01:00</lastmod>
-  </url><url>
     <loc>https://blog.dotdot.cloud/tags/yaml/</loc>
     <lastmod>2020-05-03T11:28:55+01:00</lastmod>
   </url><url>
@@ -46,9 +58,6 @@
   </url><url>
     <loc>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</loc>
     <lastmod>2020-05-02T19:50:53+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.dotdot.cloud/tags/python/</loc>
-    <lastmod>2020-04-20T17:05:43+01:00</lastmod>
   </url><url>
     <loc>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</loc>
     <lastmod>2020-04-20T17:05:43+01:00</lastmod>
