@@ -1,7 +1,6 @@
 ---
 title: "Freeserve - How We Built The System"
-date: 2021-01-18T19:38:12Z
-draft: true
+date: 2021-07-06T00:00:00+01:00
 ---
 > “Success has many fathers, but failure is an orphan”
 
@@ -116,3 +115,54 @@ modifications:-
   to avoid having to read or stat the individual message files.
 
 ## Performance Tweaks
+
+As described above, the pop daemon was tweaked to only stat or touch mail
+files when absolutely necessary - basically when a message was actually read
+by the client (after which the status would be updated by renaming - thats
+Maildir semantics).
+
+The Mail directory was hashed to spread the layout across the filer - this
+could have been extended across multiple filer heads, but that was not
+necessary during the time I was there. 
+
+The mail hosts always attempted once to deliver external mail.  After that
+they passed the mail to a fallback routing host which dealt with all the
+things that could not be delivered immediately.  This kept control of the
+size of the mail queues on eveerything except the fallback host (which had
+different queue running parameters on it).
+
+## Security Tweaks
+
+Exim was running entirely as a single user, no setuid etc, this reduced the
+possibilities for security exploits (although this also meant that Exim could
+see the entire mail spool - but that was a relatively low risk problem at
+that time).
+
+The qmail side chrooted to the mail spool for a user on authentication.
+
+Due to expected (and seen) issues with spamming (from our users), and
+attempting to remain a good internet citizen, Freeserve blocked SMTP from end
+users out of the network.  Even more so (and controversially), we routed all
+SMTP connections to a local (to the modem rack pop) SMTP server.  This routed
+all outgoing mail. It also had a view on all mail passing through it, and
+used some very simple heuristics to pick up spam attempts - any SMTP
+connection that attempted to push more than a few messages out would have the
+mail queued for later checking.  This checking had more context on what was
+happening outside the single mail connection, so could pick up mail bombing
+runs (there was a craze for "Yo Momma" emails in the first months of
+Freeserve).
+
+The small number of people who hit the abuse filters had their mail blocked,
+and after a small number of repeat offences had their username block and
+their calling line ID (which we always received because it was required for
+the telephony call class) was blocked.
+
+After initial hysteria from the previously established large ISPs they did
+grudgingly recognize that Freeserve was not a bad spam source.
+
+## Notes
+
+Originally I wrote this back in January, but hadn't quite finished it... and
+then the post lingered for 6 months.  So I have now hurridly finished it off
+and pushed it out because improving it further might mean it could wait
+another 6 months...
