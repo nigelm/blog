@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content="Seeing as I have been asked about building RPM packages of CPAN modules today I thought it was worth putting some information down in a blog post - I would love comments on this, so that I can improve the information and hopefully make my processes better.
+Firstly, I target Centos 4 and 5 i386 only, although I am going to have to start building for x86_64 too) and build stuff for our own internal requirements, the latter meaning that the stuff I package depends very much one what I need for work at the time.">
+  
+
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dotdot.cloud/images/og-featured.png"/>
+
+<meta name="twitter:title" content="CPAN RPM  Packaging"/>
+<meta name="twitter:description" content="Seeing as I have been asked about building RPM packages of CPAN modules today I thought it was worth putting some information down in a blog post - I would love comments on this, so that I can improve the information and hopefully make my processes better.
+Firstly, I target Centos 4 and 5 i386 only, although I am going to have to start building for x86_64 too) and build stuff for our own internal requirements, the latter meaning that the stuff I package depends very much one what I need for work at the time."/>
+
+
+
+<meta name="generator" content="Hugo 0.84.0" />
+  <title>CPAN RPM  Packaging | Nailing Jelly</title>
+  <link rel="canonical" href="/2009/06/03/cpan-rpm-packaging/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.7755190cce20b9fe1580b4b0c873dbe27e696d55f7f754a4b68d58afad7817d7.css" integrity="sha256-d1UZDM4guf4VgLSwyHPb4n5pbVX391Skto1Yr614F9c=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">Nailing Jelly</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/index.xml">RSS</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/2009/06/03/cpan-rpm-packaging/" rel="bookmark">CPAN RPM  Packaging</a>
+  </h2>
+  
+    <time datetime="2009-06-03T19:52:01Z">3 June, 2009</time>
+  
+</header>
+    <p>Seeing as I have been asked about building RPM packages of CPAN modules today
+I thought it was worth putting some information down in a blog post - I would
+love comments on this, so that I can improve the information and hopefully
+make my processes better.</p>
+<p>Firstly, I target Centos 4 and 5 i386 only, although I am going to have to
+start building for x86_64 too) and build stuff for our own internal
+requirements, the latter meaning that the stuff I package depends very much
+one what I need for work at the time.  Its also a little painful that I cannot
+easily make this work generally available, but getting these packages into the
+wild would be complex.  Packaging for other RPM flavoured distros should be
+easy enough, but slightly different.</p>
+<p>There are a set of rules we work to for our internal deployments:-</p>
+<ol>
+<li>Everything is packaged as RPMs.</li>
+<li>You do not cheat on dependancies - if I do yum install foobar then foobar had better bring in all the appropriate required packages/modules</li>
+<li>We have 3 repositories - the first 2 are the standard Centos repos (or rather local mirrors) of the base os and updates respositories.  The third is our own local repository of packages we build.  We require that all packages are signed so have our own internal GPG key for our repos.</li>
+<li>All packages in our repository are built by us in a clean build environment and have no dependancies from outside the 3 repos we use.</li>
+<li>Packages should pass their own test suite (which we run as part of the build) unless there are exceptional circumstances</li>
+</ol>
+<p>Although, as I stated above, we are building things for our own internal use,
+we do always contribute bug reports and fixes back to the upstream software
+provider (unless the patch is only needed due to our own bad practice) -
+maintenance is much easier if you keep close to upstream.</p>
+<p>There are really 2 parts to building CPAN RPMs:-</p>
+<ol>
+<li>Making a source RPM (or even just the spec file)</li>
+<li>Building the binary RPMs</li>
+</ol>
+<p>I&rsquo;m going to consider these separately.</p>
+<h3 id="creating-the-source-rpm">Creating The Source RPM</h3>
+<!-- raw HTML omitted -->
+<p>Ideally use a source RPM package from a packager that you trust.  In my
+experience the <a href="http://fedoraproject.org/">Fedora</a> guys have now got the best
+RPM packaging of perl modules - they have a set of <a href="https://fedoraproject.org/wiki/Packaging/Perl">package
+rules</a> they work to, and a good
+set of tools.  If the Fedora folks have packaged a CPAN module then I will use
+their source RPM in preference to building one myself.  If there are problems
+with that RPM then I will contribute fixes back to their packagers (or the
+upstream CPAN author).  The best place to check for packages is the
+development sources directories - for example
+<a href="http://mirrors.kernel.org/fedora/development/source/SRPMS/">http://mirrors.kernel.org/fedora/development/source/SRPMS/</a></p>
+<p>Fedora also produce the <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> (Extra
+Packages for Enterprise Linux) additional packages for RHEL/Centos.  Generally
+the only difference between these and the Fedora packages are possibly slight
+changes of dependancies due to the different OS environment (and Fedora uses
+perl 5.10 rather than Centos/RHEL perl 5.8).</p>
+<p>If you can&rsquo;t find a prebuilt source RPM file you will need to create your own.
+Although this is a relatively simple task (but unfortunately one that always
+appears to be hard to find documentation about) there are some additional
+tools to do the heavy lifting for you - these at least produce the skeleton of
+the package, but in many cases they produce a completely usable package with
+no intervention required.</p>
+<p>I used to use <a href="http://perl.arix.com/cpan2rpm/">cpan2rpm</a> to produce packages -
+the version I had was hacked around (not code I was proud of) to produce
+better build dependancy listings.</p>
+<p>However for the last couple of years I have been using
+<a href="http://cpanspec.sourceforge.net/">cpanspec</a> - another product of those
+incredible <a href="http://fedoraproject.org/">Fedora</a> packagers.  This produces a
+completely usable RPM in the vast majority of cases.  A typical invocation
+(for me) looks like:-</p>
+<pre><code>$ cpanspec --follow --srpm SQL::Abstract
+</code></pre>
+<p>The follow flag does its best, but you do normally need to package
+pre-requisites yourself before packaging the required package.</p>
+<p>cpanspec is packaged within the <a href="https://fedoraproject.org/wiki/EPEL">EPEL
+repositories</a>.</p>
+<h3 id="building-rpms">Building RPMs</h3>
+<p>Basic information on building RPM packages can be found in the <a href="http://perso.b2b2c.ca/sarrazip/dev/rpm-building-crash-course.html">RPM Building
+Crash
+Course</a>, as
+well as on the <a href="http://www.rpm.org/wiki/Docs#PackagerDocumentation">rpm.org
+wiki</a>.</p>
+<p>However it is best practice when building RPMs to build in a clean build
+environment to ensure that all the dependancy generation is correct, that no
+unpackaged files affect the build and to make sure the whole process is
+reproducible.  This is done by having a separate chrooted build system that is
+regenerated for each new build.</p>
+<p>Until a couple of years back I used the
+<a href="http://thomas.apestaart.org/projects/mach/">mach</a> build system to produce
+clean builds (there is a <a href="http://www.howtoforge.com/building-rpm-packages-in-a-chroot-environment-using-mach">HowTo
+document</a>
+on this) - and I actually still use mach for building Centos 4 packages
+(because the system hasn&rsquo;t broke so I&rsquo;ve had no need to fix it).  However for
+Centos 5 (and for any new environments) I now use
+<a href="http://fedoraproject.org/wiki/Projects/Mock">mock</a> (again from Fedora).</p>
+<p>mock is packaged within the <a href="https://fedoraproject.org/wiki/EPEL">EPEL
+repositories</a>.</p>
+<p>In both cases you will need to configure your build system for the right base
+OS and repositories.</p>
+<p>If you are building significant numbers of packages you will need additional
+scripting to manage things such as adding built packages to the repository
+(<a href="http://fedoraproject.org/wiki/Extras/CreateRepo">createrepo</a>), expire off
+superseded packages
+(<a href="http://skvidal.wordpress.com/2004/10/21/repomanage-among-other-things/">repomanage</a>)
+and check that your repositories have no unfulfilled dependancies
+(repoclosure) - these programmes are generally all in the yum or yum-utils
+packages.</p>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/perl/" rel="tag">perl</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+    
+  </footer>
+
+    
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

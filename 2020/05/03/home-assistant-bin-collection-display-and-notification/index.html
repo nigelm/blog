@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
+I am making use of this data in two ways:-
+ Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)">
+  
+
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dotdot.cloud/images/og-featured.png"/>
+
+<meta name="twitter:title" content="Home Assistant - Bin Collection Display and Notification"/>
+<meta name="twitter:description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
+I am making use of this data in two ways:-
+ Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)"/>
+
+
+
+<meta name="generator" content="Hugo 0.84.0" />
+  <title>Home Assistant - Bin Collection Display and Notification | Nailing Jelly</title>
+  <link rel="canonical" href="/2020/05/03/home-assistant-bin-collection-display-and-notification/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.7755190cce20b9fe1580b4b0c873dbe27e696d55f7f754a4b68d58afad7817d7.css" integrity="sha256-d1UZDM4guf4VgLSwyHPb4n5pbVX391Skto1Yr614F9c=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">Nailing Jelly</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/index.xml">RSS</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/2020/05/03/home-assistant-bin-collection-display-and-notification/" rel="bookmark">Home Assistant - Bin Collection Display and Notification</a>
+  </h2>
+  
+    <time datetime="2020-05-03T11:28:55&#43;01:00">3 May, 2020</time>
+  
+</header>
+    <p><a href="/2020/04/20/york-bins-api-and-home-assistant/">Previously</a> I had built a
+<a href="https://github.com/nigelm/york_bin_collection">shim</a> to make it much easier
+to import data from the <a href="https://data.yorkopendata.org/dataset/waste-collection-lookup">York Bin Collections
+API</a> into <a href="https://www.home-assistant.io/">Home
+Assistant</a></p>
+<p>I am making use of this data in two ways:-</p>
+<ul>
+<li>Making a display card in <a href="https://www.home-assistant.io/lovelace/">Lovelace</a>
+to display information about the next bin collection.</li>
+<li>Making a notification to prod me to put the right bins out.</li>
+</ul>
+<h2 id="lovelace-display">Lovelace Display</h2>
+<p>This is currently a prototype - and I need to spend more time on working out
+exactly what I want from the Home Assistant display - I may move to building a
+substantially minimised display for use with a spare Nook that I have - in a
+similar way to <a href="https://shkspr.mobi/blog/2020/02/turn-an-old-ereader-into-an-information-screen-nook-str/">Turn an old eReader into an Information Screen (Nook
+STR)</a></p>
+<p>The display card looks like this <img src="/images/blog/2020/lovelace_bin_card.png" alt="Lovelace Card"></p>
+<p>And this is the result of adding a <a href="https://www.home-assistant.io/lovelace/markdown/">Markdown
+card</a>, setting the title to
+<code>Bin Collection</code> and filling the card in with some content.   The overall YAML
+definition of the card (click the <code>Show Code Editor</code> link on the card editor)
+is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
+   {<span style="color:#ae81ff">% set bin = &#39;sensor.bin_collection&#39; %}</span>
+   {<span style="color:#ae81ff">% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}</span>
+
+  <span style="color:#ae81ff">Next collection on {{ nextdate.strftime(&#34;%A (%-d %B, %Y)  &#34;) }} {%- if</span>
+  <span style="color:#e6db74">&#39;blackbin&#39;</span> <span style="color:#ae81ff">in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+  <span style="color:#ae81ff">icon=&#34;mdi:delete&#34;&gt;&lt;/ha-icon&gt;{% endif %} {%- if &#39;box&#39; in state_attr(bin,</span>
+  <span style="color:#e6db74">&#39;next_collection_types&#39;</span><span style="color:#ae81ff">) %}&lt;ha-icon icon=&#34;mdi:recycle&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
+  {<span style="color:#ae81ff">%- if &#39;greenbin&#39; in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+  <span style="color:#ae81ff">icon=&#34;mdi:pine-tree&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
+
+
+  <span style="color:#ae81ff">Items collected:- {% for set in state_attr(bin, &#39;next_collection_types&#39;) %} {%</span>
+  <span style="color:#ae81ff">set thing = state_attr(bin, set) %}</span>
+
+  - {{ <span style="color:#ae81ff">thing.MaterialsCollected }} {% endfor %}</span>
+<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Collection</span>
+<span style="color:#f92672">type</span>: <span style="color:#ae81ff">markdown</span>
+</code></pre></div><p>It is <em>incredibly</em> sensitive to initial spacing and indents&hellip;</p>
+<p>The first two lines of the content:-</p>
+<pre><code>{% set bin = 'sensor.bin_collection' %}
+{% set nextdate = strptime(states(bin),'%Y-%m-%d') %}
+</code></pre>
+<p>set the initial config up.</p>
+<p>The next block outputs the next collection date in a reasonable format,
+followed by icons for the appropriate bin type(s) - this is rather complex in
+setting up the right icon to display.</p>
+<p>The final chunk lists the types of material being collected this week - it
+iterates through the types of collection for this week, and pulls the
+information this collection into the <code>thing</code> variable.  Thats then used to
+fill in the list elements.</p>
+<p>This chunk may well be made more detailed in the future, but for now its a
+prototype, and theres a lot of other things than can be built on this should
+someone desire a different presentation.</p>
+<h2 id="bins-out-notification">Bins Out Notification</h2>
+<p>The intention here was to send a nudge, on the evening before the bins are
+collected, to remind me to put the appropriate bin out.</p>
+<p>Notifications in Home Assistant are most easily handled by an
+<a href="https://www.home-assistant.io/docs/automation/">Automation</a>. I tend to use
+<a href="https://pushover.net/">Pushover</a> notifications, but there are various other
+<a href="https://www.home-assistant.io/integrations/#notifications">Home Assistant
+Notifcations</a>.</p>
+<p>The complete automation used looks like this:-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
+  <span style="color:#f92672">alias</span>: <span style="color:#ae81ff">Bin Day Tomorrow Notification</span>
+  <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Tell me about bin day tomorrow</span>
+  <span style="color:#f92672">trigger</span>:
+  - <span style="color:#f92672">at</span>: <span style="color:#e6db74">&#39;19:15&#39;</span>
+    <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">time</span>
+  <span style="color:#f92672">condition</span>:
+  - <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">template</span>
+    <span style="color:#f92672">value_template</span>: <span style="color:#e6db74">&#39;{{ as_timestamp(now())+86400 &gt; as_timestamp(states(&#39;&#39;sensor.bin_collection&#39;&#39;))
+</span><span style="color:#e6db74">      }}&#39;</span>
+  <span style="color:#f92672">action</span>:
+  - <span style="color:#f92672">data_template</span>:
+      <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#39;{% set bin = &#39;&#39;sensor.bin_collection&#39;&#39; %}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        Items collected:- {% for set in state_attr(bin, &#39;&#39;next_collection_types&#39;&#39;)
+</span><span style="color:#e6db74">        %} {% set thing = state_attr(bin, set) %}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        - {{ thing.MaterialsCollected }} {% endfor %}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#39;</span>
+      <span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Day Tomorrow - {{ &#39;, &#39;.join(state_attr(&#39;sensor.bin_collection&#39;, &#39;next_collection_types&#39;))</span>
+        }}<span style="color:#ae81ff">.</span>
+    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">notify.pushover</span>
+</code></pre></div><p>So this is an automation that runs every day at 19:15 (the <code>trigger:</code>
+section), with a condition to check if the collection is tomorrow (see if now
+as a Unix timestamp with 1 days worth of seconds added, is greater than the
+timestamp version of the bin collection date - this is in the <code>condition:</code>
+section).</p>
+<p>The <code>action:</code> section calls up the Pushover notification with a message and
+title mostly based on the Lovelace card information shown above.</p>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/blog/" rel="tag">Blog</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/2020/" rel="tag">2020</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/home-assistant/" rel="tag">Home-Assistant</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/jinja2/" rel="tag">Jinja2</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/yaml/" rel="tag">YAML</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/api/" rel="tag">API</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

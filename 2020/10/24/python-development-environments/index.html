@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content="I have spent a substantial number of years mostly programming in Perl, but this year I have been working on a team that has a strong preference for Python and so I have converted across.
+Previously I have dabbled in Python - I could read basic python, and had patched various things - mainly Ansible - in the past, but had not done any serious work in the language.
+However its not the transfer to the language thats caused most of the headaches, but other things surrounding that - for example:-">
+  
+
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dotdot.cloud/images/og-featured.png"/>
+
+<meta name="twitter:title" content="Python Development Environments"/>
+<meta name="twitter:description" content="I have spent a substantial number of years mostly programming in Perl, but this year I have been working on a team that has a strong preference for Python and so I have converted across.
+Previously I have dabbled in Python - I could read basic python, and had patched various things - mainly Ansible - in the past, but had not done any serious work in the language.
+However its not the transfer to the language thats caused most of the headaches, but other things surrounding that - for example:-"/>
+
+
+
+<meta name="generator" content="Hugo 0.84.0" />
+  <title>Python Development Environments | Nailing Jelly</title>
+  <link rel="canonical" href="/2020/10/24/python-development-environments/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.7755190cce20b9fe1580b4b0c873dbe27e696d55f7f754a4b68d58afad7817d7.css" integrity="sha256-d1UZDM4guf4VgLSwyHPb4n5pbVX391Skto1Yr614F9c=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">Nailing Jelly</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/index.xml">RSS</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/2020/10/24/python-development-environments/" rel="bookmark">Python Development Environments</a>
+  </h2>
+  
+    <time datetime="2020-10-24T17:47:31&#43;01:00">24 October, 2020</time>
+  
+</header>
+    <p>I have spent a substantial number of years mostly programming in
+<a href="https://www.perl.org/">Perl</a>, but this year I have been working on a team
+that has a strong preference for <a href="https://www.python.org/">Python</a> and so I
+have converted across.</p>
+<p>Previously I have dabbled in Python - I could read basic python, and had
+patched various things - mainly <a href="https://www.ansible.com/">Ansible</a> - in the
+past, but had not done any serious work in the language.</p>
+<p>However its not the transfer to the language thats caused most of the
+headaches, but other things surrounding that - for example:-</p>
+<ul>
+<li>Development environment</li>
+<li>Formatting, checking, rules for how things go into git</li>
+<li>Documentation</li>
+</ul>
+<p>We don&rsquo;t have much in the way of stated rules for these, and despite Python
+being much more about there being one right way to do things, in terms of
+overall development environments it all appears that there is a huge variety
+of ways that people do stuff&hellip;</p>
+<p>So this is what I am now moving to for things I am working on&hellip;</p>
+<h2 id="development-environment">Development Environment</h2>
+<p>I use <a href="https://python-poetry.org/">Poetry</a>.  This brings together management
+of virtual environments, dependency lists etc as well as distribution builds
+and pushing of packages to pypi or to a local repository.</p>
+<p>The downside is that you tend to have to run things by <code>poetry run cmd...</code>,
+but I mostly set that up in a Makefile to deal with that.   Additionally at
+present the cost of running builds and deploys in CI is bloated by the
+additional time to install poetry - I may build myself an appropriate Docker
+image to ameliorate that.</p>
+<p>The Makefile I add is hand crafted - mostly cargo-culted from that last thing
+I did - but I now use the <a href="https://www.freecodecamp.org/news/self-documenting-makefile/">self documenting Makefile
+trick</a> to add a
+set of help to the Makefile.</p>
+<p>Version number handling is managed by
+<a href="https://github.com/c4urself/bump2version">bump2version</a> - using that to
+rewrite the poetry version tag as well as updating the information within the
+package <code>__init__.py</code> file (yes this may well be superfluous but the
+alternatives appear to require loading additional modules just to find your
+own version number).  Additionally I found a hack this last week to make
+<code>bump2version</code> update the <code>CHANGELOG.md</code> file by using the alternate methods
+of Markdown formatting (otherwise the <code>#</code> header markers cause the
+<code>bump2version</code> config file to ignore the lines as a comment).</p>
+<p>So in &lsquo;.bumpversion.cfg&rsquo; you have:-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[bumpversion:file:CHANGELOG.md]</span>
+<span style="color:#a6e22e">search</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;!-- insertion marker --&gt;</span>
+<span style="color:#a6e22e">replace</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;!-- insertion marker --&gt;
+</span><span style="color:#e6db74">        [{new_version}] - {now:%Y-%m-%d}
+</span><span style="color:#e6db74">        --------------------</span>
+</code></pre></div><p>and in <code>CHANGELOG.md</code> you have:-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">Unreleased Changes
+------------------
+
+<span style="color:#75715e">&lt;!-- insertion marker --&gt;</span>
+<span style="color:#66d9ef">-</span> last commit changelog entry
+</code></pre></div><h2 id="pre-commit-formatting--checking">Pre-Commit Formatting / Checking</h2>
+<p>I have a <code>.pre-commit-config.yaml</code> file in each repository - mostly exactly
+the same, but with some per-project tweaks.  I run
+<a href="https://pre-commit.com/"><code>pre-commit</code></a> prior to each commit - mostly not
+currently enforced by actually adding it to git hooks, although I may change
+that as I did previously have a set of hooks set up by
+<a href="https://github.com/git-hooks/git-hooks">git-hooks</a> to run the perl
+<a href="https://metacpan.org/release/Code-TidyAll">TidyAll</a></p>
+<p>A sample <code>.pre-commit-config.yaml</code> file can be found
+<a href="https://github.com/nigelm/ssh2_parse_key/blob/master/.pre-commit-config.yaml">here</a>,
+but in general I am running a set of checks including the <a href="https://github.com/psf/black">black
+formatter</a>, flake8 and mypy.</p>
+<p>In terms of git management I currently tend to work in
+<a href="https://git-fork.com/">Fork</a> having previously used
+<a href="https://www.git-tower.com/">Tower</a> for many years (Tower is likely a bit more
+powerful and slick, but it now costs more per year than Fork does outright -
+although I hope that Fork will not regret going for a one off cost model).</p>
+<h2 id="documentation">Documentation</h2>
+<p>Documentation is another thing that seems odd regarding python - there is the
+start of a standard workflow defined with docstrings etc, and then things go a
+bit freestyle.  I have to say I am not very keen on reStructuredText, and
+Sphinx felt opaque to me - and then you hit several different API
+documentation mechanisms, many of which appear to be machine rather than human
+readable.  This is one of the areas where the Perl simple but consistant
+documentation setup works better - although the python side does pull more
+introspection information out of the code.</p>
+<p>So I have settled on one I like (so far - only been working in this for a few
+weeks) and that appears to work well with my other tools.</p>
+<p>I use <a href="https://www.mkdocs.org/">MkDocs</a>.  With that I have been using the
+<a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a> theme.
+Stacked on top of that are the
+<a href="https://github.com/DataDog/mkdocs-click"><code>mkdocs-click</code></a> extension for CLI
+tools, and <a href="https://github.com/pawamoy/mkdocstrings"><code>mkdocstrings</code></a> for API
+documentation.</p>
+<p>There is one little problem with the pipeline above in that <code>mkdocs-click</code> and
+<code>mkdocstrings</code> use different function signature markup - this is something I
+mean to have a look at in the future.</p>
+<h2 id="ci-etc">CI etc</h2>
+<p>The CI workflow varies not least because I release some things on
+<a href="https://github.com">Github</a> using <a href="https://travis-ci.org/">Travis CI</a>, and
+other things are handled by an internal <a href="https://about.gitlab.com/">GitLab</a>
+instance using GitLab CI.  However in both cases I have got a fairly standard
+test, release and build documentation workflow with the artifacts going to the
+appropriate repo and documentation going to Github/GitLab Pages.</p>
+<p>I am not currently doing a lot of additional multi-version testing with <code>tox</code> etc.  I may move to this later, but am trying to take this a step at a time.</p>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+    
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

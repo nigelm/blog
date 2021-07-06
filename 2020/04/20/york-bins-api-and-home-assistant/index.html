@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  
+    <meta name="description" content="I have been using Home Assistant to automate various things at home. One of the things I thought would be useful was the ability for the system to inform me of when the next bin collection is, and what sort of collection this would be.
+Thankfully York Council has an API telling you about their bin collections. This is documented at York Waste Collection Lookup
+Home Assistant REST Sensors Home Assistant helpfully can use REST sources as a sensor.">
+  
+
+
+
+
+
+
+
+  <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.dotdot.cloud/images/og-featured.png"/>
+
+<meta name="twitter:title" content="York Bins API and Home Assistant"/>
+<meta name="twitter:description" content="I have been using Home Assistant to automate various things at home. One of the things I thought would be useful was the ability for the system to inform me of when the next bin collection is, and what sort of collection this would be.
+Thankfully York Council has an API telling you about their bin collections. This is documented at York Waste Collection Lookup
+Home Assistant REST Sensors Home Assistant helpfully can use REST sources as a sensor."/>
+
+
+
+<meta name="generator" content="Hugo 0.84.0" />
+  <title>York Bins API and Home Assistant | Nailing Jelly</title>
+  <link rel="canonical" href="/2020/04/20/york-bins-api-and-home-assistant/">
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+  
+  
+  <link rel="stylesheet" href="/css/base.min.7755190cce20b9fe1580b4b0c873dbe27e696d55f7f754a4b68d58afad7817d7.css" integrity="sha256-d1UZDM4guf4VgLSwyHPb4n5pbVX391Skto1Yr614F9c=" crossorigin="anonymous">
+
+
+
+</head>
+
+<body>
+  <nav class="u-background">
+  <div class="u-wrapper">
+    <ul class="Banner">
+      <li class="Banner-item Banner-item--title">
+        <a class="Banner-link u-clickable" href="/">Nailing Jelly</a>
+      </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/about/">About</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/posts/">Posts</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/tags/">Tags</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/categories/">Categories</a>
+        </li>
+      
+        <li class="Banner-item">
+          <a class="Banner-link u-clickable" href="/index.xml">RSS</a>
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+  <main>
+    <div class="u-wrapper">
+      <div class="u-padding">
+        
+
+  <article>
+    <header class="Heading">
+  <h2 class="Heading-title">
+    <a class="Heading-link u-clickable" href="/2020/04/20/york-bins-api-and-home-assistant/" rel="bookmark">York Bins API and Home Assistant</a>
+  </h2>
+  
+    <time datetime="2020-04-20T17:05:43&#43;01:00">20 April, 2020</time>
+  
+</header>
+    <p>I have been using Home Assistant to automate various things at home.  One of
+the things I thought would be useful was the ability for the system to inform
+me of when the next bin collection is, and what sort of collection this would
+be.</p>
+<p>Thankfully York Council has an API telling you about their bin collections.
+This is documented at <a href="https://data.yorkopendata.org/dataset/waste-collection-lookup">York Waste Collection
+Lookup</a></p>
+<h2 id="home-assistant-rest-sensors">Home Assistant REST Sensors</h2>
+<p>Home Assistant helpfully can use REST sources as a sensor.  Unfortunately the
+formatting of the data in the York API is not well arranged to be easy for
+Home Assistant to use - in particular Home Assistant is not easily able to
+handle returned data that is organised as an array of dictionaries.</p>
+<p>People have made use of this in the past - for example see <a href="https://community.home-assistant.io/t/sorting-rest-sensors-by-date/96786">this
+example</a>.
+However this makes multiple calls to the API, which is unfriendly, and relies
+on the API always returning its data in the same order in the array, which
+appears to not be specified.</p>
+<h2 id="python-command-line-shim-for-home-assistant">Python Command Line Shim For Home Assistant</h2>
+<p>I decided it was better to put a shim in to pull the data from the API, do a
+little processing on the data - specifically changing the date format into
+something sane - and arrange these as a dictionary with some additional
+overall collection data around it.</p>
+<p>This shim can be found in the Github repository at
+<a href="https://github.com/nigelm/york_bin_collection">https://github.com/nigelm/york_bin_collection</a></p>
+<p>A sample of using it would look like:-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">sensor</span>:
+  <span style="color:#75715e"># York Bins Collection API - 3 sets, 1 for each bin</span>
+  - <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">command_line</span>
+    <span style="color:#f92672">command</span>: <span style="color:#ae81ff">/config/york_bin_collection.py 100050567115</span>
+    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Bin Collection</span>
+    <span style="color:#f92672">scan_interval</span>: <span style="color:#ae81ff">86400</span>
+    <span style="color:#f92672">value_template</span>: <span style="color:#e6db74">&#39;{{ value_json.next_collection }}&#39;</span>
+    <span style="color:#f92672">json_attributes</span>:
+      - <span style="color:#ae81ff">next_collection</span>
+      - <span style="color:#ae81ff">next_collection_types</span>
+      - <span style="color:#ae81ff">blackbin</span>
+      - <span style="color:#ae81ff">greenbin</span>
+      - <span style="color:#ae81ff">box</span>
+      - <span style="color:#ae81ff">updated</span>
+</code></pre></div><p>and this would return the date of the next collection as the main value -
+currently <code>2020-04-24</code> - and the state attributes (reported as YAML) then
+looks like:-</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">next_collection</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
+<span style="color:#f92672">next_collection_types</span>:
+  - <span style="color:#ae81ff">blackbin</span>
+<span style="color:#f92672">blackbin</span>:
+  <span style="color:#f92672">BinType</span>: <span style="color:#ae81ff">GREY 180</span>
+  <span style="color:#f92672">BinTypeDescription</span>: <span style="color:#ae81ff">Grey Bin 180L</span>
+  <span style="color:#f92672">CollectionDay</span>: <span style="color:#ae81ff">FRI</span>
+  <span style="color:#f92672">CollectionDayFull</span>: <span style="color:#ae81ff">Friday</span>
+  <span style="color:#f92672">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#f92672">CollectionFrequency</span>: <span style="color:#ae81ff">Alternate Weeks</span>
+  <span style="color:#f92672">CollectionFrequencyShort</span>: <span style="color:#ae81ff">WEEK 2</span>
+  <span style="color:#f92672">CollectionPoint</span>: <span style="color:#ae81ff">FRONT</span>
+  <span style="color:#f92672">CollectionPointDescription</span>: <span style="color:#ae81ff">Edge of Property at Front</span>
+  <span style="color:#f92672">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">CollectionType</span>: <span style="color:#ae81ff">GREY BIN/SACK</span>
+  <span style="color:#f92672">CollectionTypeDescription</span>: <span style="color:#ae81ff">Grey Bin/Black Sack Collection</span>
+  <span style="color:#f92672">ImageName</span>: <span style="color:#ae81ff">blackbin</span>
+  <span style="color:#f92672">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">MaterialsCollected</span>: <span style="color:#ae81ff">General Domestic</span>
+  <span style="color:#f92672">NumberOfBins</span>: <span style="color:#e6db74">&#39;1&#39;</span>
+  <span style="color:#f92672">WasteType</span>: <span style="color:#ae81ff">GREY BIN/SACK</span>
+  <span style="color:#f92672">WasteTypeDescription</span>: <span style="color:#ae81ff">Grey Bin/Black Sack Collection</span>
+  <span style="color:#f92672">last</span>: <span style="color:#e6db74">&#39;2020-04-10&#39;</span>
+  <span style="color:#f92672">next</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
+<span style="color:#f92672">greenbin</span>:
+  <span style="color:#f92672">BinType</span>: <span style="color:#ae81ff">GREEN 180</span>
+  <span style="color:#f92672">BinTypeDescription</span>: <span style="color:#ae81ff">Green Bin 180L</span>
+  <span style="color:#f92672">CollectionDay</span>: <span style="color:#ae81ff">FRI</span>
+  <span style="color:#f92672">CollectionDayFull</span>: <span style="color:#ae81ff">Friday</span>
+  <span style="color:#f92672">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#f92672">CollectionFrequency</span>: <span style="color:#ae81ff">Alternate Weeks</span>
+  <span style="color:#f92672">CollectionFrequencyShort</span>: <span style="color:#ae81ff">WEEK 1</span>
+  <span style="color:#f92672">CollectionPoint</span>: <span style="color:#ae81ff">FRONT</span>
+  <span style="color:#f92672">CollectionPointDescription</span>: <span style="color:#ae81ff">Edge of Property at Front</span>
+  <span style="color:#f92672">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">CollectionType</span>: <span style="color:#ae81ff">GREEN</span>
+  <span style="color:#f92672">CollectionTypeDescription</span>: <span style="color:#ae81ff">Green Collection</span>
+  <span style="color:#f92672">ImageName</span>: <span style="color:#ae81ff">greenbin</span>
+  <span style="color:#f92672">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">MaterialsCollected</span>: <span style="color:#ae81ff">Garden Waste</span>
+  <span style="color:#f92672">NumberOfBins</span>: <span style="color:#e6db74">&#39;1&#39;</span>
+  <span style="color:#f92672">WasteType</span>: <span style="color:#ae81ff">GREEN</span>
+  <span style="color:#f92672">WasteTypeDescription</span>: <span style="color:#ae81ff">Green Collection</span>
+  <span style="color:#f92672">last</span>: <span style="color:#e6db74">&#39;2019-11-29&#39;</span>
+  <span style="color:#f92672">next</span>: <span style="color:#66d9ef">null</span>
+<span style="color:#f92672">box</span>:
+  <span style="color:#f92672">BinType</span>: <span style="color:#ae81ff">BOX 55</span>
+  <span style="color:#f92672">BinTypeDescription</span>: <span style="color:#ae81ff">Box 55L</span>
+  <span style="color:#f92672">CollectionDay</span>: <span style="color:#ae81ff">FRI</span>
+  <span style="color:#f92672">CollectionDayFull</span>: <span style="color:#ae81ff">Friday</span>
+  <span style="color:#f92672">CollectionDayOfWeek</span>: <span style="color:#ae81ff">5</span>
+  <span style="color:#f92672">CollectionFrequency</span>: <span style="color:#ae81ff">Alternate Weeks</span>
+  <span style="color:#f92672">CollectionFrequencyShort</span>: <span style="color:#ae81ff">WEEK 1</span>
+  <span style="color:#f92672">CollectionPoint</span>: <span style="color:#ae81ff">FRONT</span>
+  <span style="color:#f92672">CollectionPointDescription</span>: <span style="color:#ae81ff">Edge of Property at Front</span>
+  <span style="color:#f92672">CollectionPointLocation</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">CollectionType</span>: <span style="color:#ae81ff">KERBSIDE</span>
+  <span style="color:#f92672">CollectionTypeDescription</span>: <span style="color:#ae81ff">Kerbside Collection</span>
+  <span style="color:#f92672">ImageName</span>: <span style="color:#ae81ff">box</span>
+  <span style="color:#f92672">Locality</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">MaterialsCollected: &#39;Paper/Card : Plastic/Cans </span>: <span style="color:#ae81ff">Glass&#39;</span>
+  <span style="color:#f92672">NumberOfBins</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+  <span style="color:#f92672">WasteType</span>: <span style="color:#ae81ff">KERBSIDE</span>
+  <span style="color:#f92672">WasteTypeDescription</span>: <span style="color:#ae81ff">Kerbside Collection</span>
+  <span style="color:#f92672">last</span>: <span style="color:#e6db74">&#39;2020-04-17&#39;</span>
+  <span style="color:#f92672">next</span>: <span style="color:#e6db74">&#39;2020-05-01&#39;</span>
+<span style="color:#f92672">updated</span>: <span style="color:#e6db74">&#39;2020-04-20 16:25:55.918518&#39;</span>
+<span style="color:#f92672">friendly_name</span>: <span style="color:#ae81ff">Bin Collection</span>
+</code></pre></div><p>This data can then be used in other automations - thats what I am going to
+look at next.</p>
+
+    
+
+
+  
+
+  
+
+
+
+
+
+  <footer>
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/blog/" rel="tag">Blog</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/categories/2020/" rel="tag">2020</a>
+            </li>
+          
+        </ul>
+      
+    
+      
+        <ul class="Tags">
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/home-assistant/" rel="tag">Home-Assistant</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/python/" rel="tag">Python</a>
+            </li>
+          
+            <li class="Tags-item u-background">
+              <a class="Tags-link u-clickable" href="/tags/api/" rel="tag">API</a>
+            </li>
+          
+        </ul>
+      
+    
+  </footer>
+
+    
+  
+
+  </article>
+
+
+      </div>
+    </div>
+  </main>
+  
+  <footer class="Footer">
+    <div class="u-wrapper">
+      <div class="u-padding">
+        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

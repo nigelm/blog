@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="https://blog.dotdot.cloud/xml/base.min.xml" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sad on Nailing Jelly</title>
@@ -6,16 +7,512 @@
     <description>Recent content in sad on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 May 2007 21:58:00 +0000</lastBuildDate><atom:link href="https://blog.dotdot.cloud/categories/sad/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 May 2007 21:58:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.dotdot.cloud/categories/sad/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Not Happy Mac</title>
-      <link>https://blog.dotdot.cloud/2007/05/09/not-happy-mac/</link>
-      <pubDate>Wed, 09 May 2007 21:58:00 +0000</pubDate>
-      
-      <guid>https://blog.dotdot.cloud/2007/05/09/not-happy-mac/</guid>
-      <description>My MacBook has managed to trash my preferences again - not too drastic maybe, except that also means its lost all my Mail settings (glad the mail itself is on imap) and all the calendar settings including the actual entries&amp;hellip;.
-It looks like changing the video setup whilst it is suspended is a good way to break things - suspend then unplug the external video and open it up again without the external video, and it can hang.</description>
+      <title>Freeserve - How We Built The System</title>
+      <link>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</link>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;“Success has many fathers, but failure is an orphan”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;There have been many people who have claimed to be &amp;ldquo;The Inventor of
+Freeserve&amp;rdquo;, although in many cases it appears the more fuss they make about
+this title the less they had to do with it&amp;hellip;  I wasn&amp;rsquo;t in the room when that
+particular proposal was made (although I have quite strong suspicions on who
+originally proposed the idea), but I was on the original implementation team
+within Planet Online.&lt;/p&gt;
+&lt;p&gt;I mostly worked in the Core Systems group at Planet between 1995 and 1999.  As
+part of that I worked on the CAG (Connect and Go) systems which provided a
+white label dial up ISP service for the likes of &lt;code&gt;Prestel&lt;/code&gt;, &lt;code&gt;Kingston&lt;/code&gt; (the
+Hull telecoms provider) and &lt;code&gt;Channel 6&lt;/code&gt; which was a predecessor to Freeserve.&lt;/p&gt;
+&lt;p&gt;And then I worked on Freeserve.  In particular the sign up and authentication
+system were mine, as well as the mail system.  However this particular
+reminiscence is going to concentrate on the mail systems.&lt;/p&gt;
+&lt;h2 id=&#34;what-was-freeserve&#34;&gt;What Was Freeserve&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Freeserve&#34;&gt;Freeserve&lt;/a&gt; was a consumer ISP
+originally run by Dixons (the high street tech chain) with Planet Online.
+Dixons gave a huge advertising and high-street footprint - they had a store
+on every UK high street where you could pick up your Freeserve floppy disk or
+CD.&lt;/p&gt;
+&lt;p&gt;Although Freeserve was not the very first to offer no-fee dial-up internet
+service, the clout of Dixons and the advertising campaign meant that it took
+off at a rate of knots, putting on 900,000 accounts in the first 4 months
+after its launch in 1998.&lt;/p&gt;
+&lt;p&gt;The service initially ran over dial-up modems, using a national dial up number
+which was free of charge to the initiator.  Through the magic of the
+complicated UK telephony cross-charging system this provided a small
+termination payment to the service provider - and this was used to pay for the
+service.  There were other revenue streams - advertising, premium technical
+support and later pay for services.&lt;/p&gt;
+&lt;h2 id=&#34;why-now&#34;&gt;Why Now?&lt;/h2&gt;
+&lt;p&gt;I was talking to a couple of friends this morning, and Freeserve was
+mentioned.  My friend was incredibly enthusiastic about the Freeserve mail
+system - how you could set up different email addresses within the domain and
+have a set of filtering to individual family mailboxes - in 1998!  And I had
+to say &amp;ldquo;I wrote that&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Last year was 25 years since we started Planet Online - I was one of the first
+3 hires there.  But, and especially with the Covid situation, that anniversary
+passed unnoticed.  Its 22 years since Freeserve launched and made a
+significant change to the UK home internet market - in the last couple of
+years the last vestiges of the Freeserve name and service have been finally
+closed off.&lt;/p&gt;
+&lt;h2 id=&#34;freeserve-email&#34;&gt;Freeserve Email&lt;/h2&gt;
+&lt;p&gt;Freeserve email addresses were of the form &lt;code&gt;user@example.freeserve.co.uk&lt;/code&gt; -
+the &lt;code&gt;user&lt;/code&gt; part could be anything, and it was just the
+&lt;code&gt;example.freeserve.co.uk&lt;/code&gt; part that identify the Freeserve account.
+All messages to any user &lt;code&gt;@example.freeserve.co.uk&lt;/code&gt; would end up in one
+single POP3 mailbox.&lt;/p&gt;
+&lt;p&gt;As was normal for the time, email was provided to the customer over POP-3,
+with outgoing email sent by SMTP via a Freeserve mail server.  To reduce SPAM
+and other shenanigans there was a route map applied to the Freeserve
+terminating modem racks which forced all SMTP connections to a local (to the
+modem rack) SMTP server.&lt;/p&gt;
+&lt;p&gt;The mail receiving stack was &lt;a href=&#34;http://www.exim.org/&#34;&gt;Exim&lt;/a&gt; delivering into a
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Maildir&#34;&gt;Maildir&lt;/a&gt; mail spool which resided on a
+set of NetApp NFS filesystems.  This gave us a huge (for the era), mail spool
+with fairly high availability.  There were some performance tweaks applied to
+make this work for the size of mail spool and loading.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://en.wikipedia.org/wiki/Maildir&#34;&gt;Maildir+&lt;/a&gt; specification allows
+additional tag information to be added to a message by tweaking the filename
+that the message is saved under.  The configuration used saved both the
+message size and the local recipient address into these tags.&lt;/p&gt;
+&lt;p&gt;The mail spool was NFS exported to a number of the mail servers - which were
+all Linux systems.  The pop side was the &lt;a href=&#34;https://cr.yp.to/qmail.html&#34;&gt;qmail&lt;/a&gt;
+&lt;code&gt;qmail-pop3d&lt;/code&gt; with some local modifications and an additionally modified
+&lt;code&gt;qmail-popup&lt;/code&gt; using a locally built authentication utility to replace
+&lt;code&gt;checkpassword&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;checkpassword&lt;/code&gt; replacement queried the Freeserve RADIUS servers for
+authentication.  Those had some additional performance tweaks which I may come
+to another day.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;qmail-popup&lt;/code&gt; program collected the pop3 username and password.  The
+username would be the email domain - ie &lt;code&gt;example.freeserve.co.uk&lt;/code&gt; - however
+you could also specify an email address - ie &lt;code&gt;user@example.freeserve.co.uk&lt;/code&gt; -
+and some other patterns.  These resulted in additional information being put
+into the environment so that this data was available to the &lt;code&gt;qmail-pop3d&lt;/code&gt;
+later on.  Authentication was passed onto the &lt;code&gt;checkpassword&lt;/code&gt; binary.&lt;/p&gt;
+&lt;p&gt;The main part of the POP daemon was  &lt;code&gt;qmail-pop3d&lt;/code&gt; - this had several
+modifications:-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The size of each email is taken from the tag part of a Maildir message
+filename - this saved an additional stat() operation to check the mail
+size, which meant that for a NetApp filer all the information needed to
+produce a POP LIST was in the NetApp fast data.&lt;/li&gt;
+&lt;li&gt;There was support for a broadcast email setup where previously unseen
+messages in a global mailbox are linked into the users own email.  Not
+sure if this was ever used but it allowed a space efficient way to send
+an email to all.&lt;/li&gt;
+&lt;li&gt;The additional environment information from &lt;code&gt;qmail-popup&lt;/code&gt; was used to
+filter the view of the mailbox - so if this had been set to &lt;code&gt;user&lt;/code&gt; then
+only emails sent to &lt;code&gt;user@...&lt;/code&gt; would be shown in the POP3 listings.
+This also used the additional information put into the Maildir+ tags
+to avoid having to read or stat the individual message files.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;performance-tweaks&#34;&gt;Performance Tweaks&lt;/h2&gt;
+&lt;p&gt;As described above, the pop daemon was tweaked to only stat or touch mail
+files when absolutely necessary - basically when a message was actually read
+by the client (after which the status would be updated by renaming - thats
+Maildir semantics).&lt;/p&gt;
+&lt;p&gt;The Mail directory was hashed to spread the layout across the filer - this
+could have been extended across multiple filer heads, but that was not
+necessary during the time I was there.&lt;/p&gt;
+&lt;p&gt;The mail hosts always attempted once to deliver external mail.  After that
+they passed the mail to a fallback routing host which dealt with all the
+things that could not be delivered immediately.  This kept control of the
+size of the mail queues on eveerything except the fallback host (which had
+different queue running parameters on it).&lt;/p&gt;
+&lt;h2 id=&#34;security-tweaks&#34;&gt;Security Tweaks&lt;/h2&gt;
+&lt;p&gt;Exim was running entirely as a single user, no setuid etc, this reduced the
+possibilities for security exploits (although this also meant that Exim could
+see the entire mail spool - but that was a relatively low risk problem at
+that time).&lt;/p&gt;
+&lt;p&gt;The qmail side chrooted to the mail spool for a user on authentication.&lt;/p&gt;
+&lt;p&gt;Due to expected (and seen) issues with spamming (from our users), and
+attempting to remain a good internet citizen, Freeserve blocked SMTP from end
+users out of the network.  Even more so (and controversially), we routed all
+SMTP connections to a local (to the modem rack pop) SMTP server.  This routed
+all outgoing mail. It also had a view on all mail passing through it, and
+used some very simple heuristics to pick up spam attempts - any SMTP
+connection that attempted to push more than a few messages out would have the
+mail queued for later checking.  This checking had more context on what was
+happening outside the single mail connection, so could pick up mail bombing
+runs (there was a craze for &amp;ldquo;Yo Momma&amp;rdquo; emails in the first months of
+Freeserve).&lt;/p&gt;
+&lt;p&gt;The small number of people who hit the abuse filters had their mail blocked,
+and after a small number of repeat offences had their username block and
+their calling line ID (which we always received because it was required for
+the telephony call class) was blocked.&lt;/p&gt;
+&lt;p&gt;After initial hysteria from the previously established large ISPs they did
+grudgingly recognize that Freeserve was not a bad spam source.&lt;/p&gt;
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+&lt;p&gt;Originally I wrote this back in January, but hadn&amp;rsquo;t quite finished it&amp;hellip; and
+then the post lingered for 6 months.  So I have now hurridly finished it off
+and pushed it out because improving it further might mean it could wait
+another 6 months&amp;hellip;&lt;/p&gt;
+</description>
     </item>
-    
+    <item>
+      <title>Python Development Environments</title>
+      <link>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</link>
+      <pubDate>Sat, 24 Oct 2020 17:47:31 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/10/24/python-development-environments/</guid>
+      <description>&lt;p&gt;I have spent a substantial number of years mostly programming in
+&lt;a href=&#34;https://www.perl.org/&#34;&gt;Perl&lt;/a&gt;, but this year I have been working on a team
+that has a strong preference for &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; and so I
+have converted across.&lt;/p&gt;
+&lt;p&gt;Previously I have dabbled in Python - I could read basic python, and had
+patched various things - mainly &lt;a href=&#34;https://www.ansible.com/&#34;&gt;Ansible&lt;/a&gt; - in the
+past, but had not done any serious work in the language.&lt;/p&gt;
+&lt;p&gt;However its not the transfer to the language thats caused most of the
+headaches, but other things surrounding that - for example:-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Development environment&lt;/li&gt;
+&lt;li&gt;Formatting, checking, rules for how things go into git&lt;/li&gt;
+&lt;li&gt;Documentation&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We don&amp;rsquo;t have much in the way of stated rules for these, and despite Python
+being much more about there being one right way to do things, in terms of
+overall development environments it all appears that there is a huge variety
+of ways that people do stuff&amp;hellip;&lt;/p&gt;
+&lt;p&gt;So this is what I am now moving to for things I am working on&amp;hellip;&lt;/p&gt;
+&lt;h2 id=&#34;development-environment&#34;&gt;Development Environment&lt;/h2&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://python-poetry.org/&#34;&gt;Poetry&lt;/a&gt;.  This brings together management
+of virtual environments, dependency lists etc as well as distribution builds
+and pushing of packages to pypi or to a local repository.&lt;/p&gt;
+&lt;p&gt;The downside is that you tend to have to run things by &lt;code&gt;poetry run cmd...&lt;/code&gt;,
+but I mostly set that up in a Makefile to deal with that.   Additionally at
+present the cost of running builds and deploys in CI is bloated by the
+additional time to install poetry - I may build myself an appropriate Docker
+image to ameliorate that.&lt;/p&gt;
+&lt;p&gt;The Makefile I add is hand crafted - mostly cargo-culted from that last thing
+I did - but I now use the &lt;a href=&#34;https://www.freecodecamp.org/news/self-documenting-makefile/&#34;&gt;self documenting Makefile
+trick&lt;/a&gt; to add a
+set of help to the Makefile.&lt;/p&gt;
+&lt;p&gt;Version number handling is managed by
+&lt;a href=&#34;https://github.com/c4urself/bump2version&#34;&gt;bump2version&lt;/a&gt; - using that to
+rewrite the poetry version tag as well as updating the information within the
+package &lt;code&gt;__init__.py&lt;/code&gt; file (yes this may well be superfluous but the
+alternatives appear to require loading additional modules just to find your
+own version number).  Additionally I found a hack this last week to make
+&lt;code&gt;bump2version&lt;/code&gt; update the &lt;code&gt;CHANGELOG.md&lt;/code&gt; file by using the alternate methods
+of Markdown formatting (otherwise the &lt;code&gt;#&lt;/code&gt; header markers cause the
+&lt;code&gt;bump2version&lt;/code&gt; config file to ignore the lines as a comment).&lt;/p&gt;
+&lt;p&gt;So in &amp;lsquo;.bumpversion.cfg&amp;rsquo; you have:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;[bumpversion:file:CHANGELOG.md]&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;search&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [{new_version}] - {now:%Y-%m-%d}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        --------------------&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and in &lt;code&gt;CHANGELOG.md&lt;/code&gt; you have:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;Unreleased Changes
+------------------
+
+&lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;-&lt;/span&gt; last commit changelog entry
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;pre-commit-formatting--checking&#34;&gt;Pre-Commit Formatting / Checking&lt;/h2&gt;
+&lt;p&gt;I have a &lt;code&gt;.pre-commit-config.yaml&lt;/code&gt; file in each repository - mostly exactly
+the same, but with some per-project tweaks.  I run
+&lt;a href=&#34;https://pre-commit.com/&#34;&gt;&lt;code&gt;pre-commit&lt;/code&gt;&lt;/a&gt; prior to each commit - mostly not
+currently enforced by actually adding it to git hooks, although I may change
+that as I did previously have a set of hooks set up by
+&lt;a href=&#34;https://github.com/git-hooks/git-hooks&#34;&gt;git-hooks&lt;/a&gt; to run the perl
+&lt;a href=&#34;https://metacpan.org/release/Code-TidyAll&#34;&gt;TidyAll&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A sample &lt;code&gt;.pre-commit-config.yaml&lt;/code&gt; file can be found
+&lt;a href=&#34;https://github.com/nigelm/ssh2_parse_key/blob/master/.pre-commit-config.yaml&#34;&gt;here&lt;/a&gt;,
+but in general I am running a set of checks including the &lt;a href=&#34;https://github.com/psf/black&#34;&gt;black
+formatter&lt;/a&gt;, flake8 and mypy.&lt;/p&gt;
+&lt;p&gt;In terms of git management I currently tend to work in
+&lt;a href=&#34;https://git-fork.com/&#34;&gt;Fork&lt;/a&gt; having previously used
+&lt;a href=&#34;https://www.git-tower.com/&#34;&gt;Tower&lt;/a&gt; for many years (Tower is likely a bit more
+powerful and slick, but it now costs more per year than Fork does outright -
+although I hope that Fork will not regret going for a one off cost model).&lt;/p&gt;
+&lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
+&lt;p&gt;Documentation is another thing that seems odd regarding python - there is the
+start of a standard workflow defined with docstrings etc, and then things go a
+bit freestyle.  I have to say I am not very keen on reStructuredText, and
+Sphinx felt opaque to me - and then you hit several different API
+documentation mechanisms, many of which appear to be machine rather than human
+readable.  This is one of the areas where the Perl simple but consistant
+documentation setup works better - although the python side does pull more
+introspection information out of the code.&lt;/p&gt;
+&lt;p&gt;So I have settled on one I like (so far - only been working in this for a few
+weeks) and that appears to work well with my other tools.&lt;/p&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://www.mkdocs.org/&#34;&gt;MkDocs&lt;/a&gt;.  With that I have been using the
+&lt;a href=&#34;https://squidfunk.github.io/mkdocs-material/&#34;&gt;Material for MkDocs&lt;/a&gt; theme.
+Stacked on top of that are the
+&lt;a href=&#34;https://github.com/DataDog/mkdocs-click&#34;&gt;&lt;code&gt;mkdocs-click&lt;/code&gt;&lt;/a&gt; extension for CLI
+tools, and &lt;a href=&#34;https://github.com/pawamoy/mkdocstrings&#34;&gt;&lt;code&gt;mkdocstrings&lt;/code&gt;&lt;/a&gt; for API
+documentation.&lt;/p&gt;
+&lt;p&gt;There is one little problem with the pipeline above in that &lt;code&gt;mkdocs-click&lt;/code&gt; and
+&lt;code&gt;mkdocstrings&lt;/code&gt; use different function signature markup - this is something I
+mean to have a look at in the future.&lt;/p&gt;
+&lt;h2 id=&#34;ci-etc&#34;&gt;CI etc&lt;/h2&gt;
+&lt;p&gt;The CI workflow varies not least because I release some things on
+&lt;a href=&#34;https://github.com&#34;&gt;Github&lt;/a&gt; using &lt;a href=&#34;https://travis-ci.org/&#34;&gt;Travis CI&lt;/a&gt;, and
+other things are handled by an internal &lt;a href=&#34;https://about.gitlab.com/&#34;&gt;GitLab&lt;/a&gt;
+instance using GitLab CI.  However in both cases I have got a fairly standard
+test, release and build documentation workflow with the artifacts going to the
+appropriate repo and documentation going to Github/GitLab Pages.&lt;/p&gt;
+&lt;p&gt;I am not currently doing a lot of additional multi-version testing with &lt;code&gt;tox&lt;/code&gt; etc.  I may move to this later, but am trying to take this a step at a time.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Home Assistant - Bin Collection Display and Notification</title>
+      <link>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</link>
+      <pubDate>Sun, 03 May 2020 11:28:55 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/05/03/home-assistant-bin-collection-display-and-notification/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/&#34;&gt;Previously&lt;/a&gt; I had built a
+&lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;shim&lt;/a&gt; to make it much easier
+to import data from the &lt;a href=&#34;https://data.yorkopendata.org/dataset/waste-collection-lookup&#34;&gt;York Bin Collections
+API&lt;/a&gt; into &lt;a href=&#34;https://www.home-assistant.io/&#34;&gt;Home
+Assistant&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I am making use of this data in two ways:-&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Making a display card in &lt;a href=&#34;https://www.home-assistant.io/lovelace/&#34;&gt;Lovelace&lt;/a&gt;
+to display information about the next bin collection.&lt;/li&gt;
+&lt;li&gt;Making a notification to prod me to put the right bins out.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lovelace-display&#34;&gt;Lovelace Display&lt;/h2&gt;
+&lt;p&gt;This is currently a prototype - and I need to spend more time on working out
+exactly what I want from the Home Assistant display - I may move to building a
+substantially minimised display for use with a spare Nook that I have - in a
+similar way to &lt;a href=&#34;https://shkspr.mobi/blog/2020/02/turn-an-old-ereader-into-an-information-screen-nook-str/&#34;&gt;Turn an old eReader into an Information Screen (Nook
+STR)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The display card looks like this &lt;img src=&#34;https://blog.dotdot.cloud/images/blog/2020/lovelace_bin_card.png&#34; alt=&#34;Lovelace Card&#34;&gt;&lt;/p&gt;
+&lt;p&gt;And this is the result of adding a &lt;a href=&#34;https://www.home-assistant.io/lovelace/markdown/&#34;&gt;Markdown
+card&lt;/a&gt;, setting the title to
+&lt;code&gt;Bin Collection&lt;/code&gt; and filling the card in with some content.   The overall YAML
+definition of the card (click the &lt;code&gt;Show Code Editor&lt;/code&gt; link on the card editor)
+is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;content&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;gt;2-&lt;/span&gt;
+   {&lt;span style=&#34;color:#ae81ff&#34;&gt;% set bin = &amp;#39;sensor.bin_collection&amp;#39; %}&lt;/span&gt;
+   {&lt;span style=&#34;color:#ae81ff&#34;&gt;% set nextdate = strptime(states(bin),&amp;#39;%Y-%m-%d&amp;#39;) %}&lt;/span&gt;
+
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;Next collection on {{ nextdate.strftime(&amp;#34;%A (%-d %B, %Y)  &amp;#34;) }} {%- if&lt;/span&gt;
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;blackbin&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;in state_attr(bin, &amp;#39;next_collection_types&amp;#39;) %}&amp;lt;ha-icon&lt;/span&gt;
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;icon=&amp;#34;mdi:delete&amp;#34;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %} {%- if &amp;#39;box&amp;#39; in state_attr(bin,&lt;/span&gt;
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;next_collection_types&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;) %}&amp;lt;ha-icon icon=&amp;#34;mdi:recycle&amp;#34;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %}&lt;/span&gt;
+  {&lt;span style=&#34;color:#ae81ff&#34;&gt;%- if &amp;#39;greenbin&amp;#39; in state_attr(bin, &amp;#39;next_collection_types&amp;#39;) %}&amp;lt;ha-icon&lt;/span&gt;
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;icon=&amp;#34;mdi:pine-tree&amp;#34;&amp;gt;&amp;lt;/ha-icon&amp;gt;{% endif %}&lt;/span&gt;
+
+
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;Items collected:- {% for set in state_attr(bin, &amp;#39;next_collection_types&amp;#39;) %} {%&lt;/span&gt;
+  &lt;span style=&#34;color:#ae81ff&#34;&gt;set thing = state_attr(bin, set) %}&lt;/span&gt;
+
+  - {{ &lt;span style=&#34;color:#ae81ff&#34;&gt;thing.MaterialsCollected }} {% endfor %}&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Collection&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;type&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;markdown&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It is &lt;em&gt;incredibly&lt;/em&gt; sensitive to initial spacing and indents&amp;hellip;&lt;/p&gt;
+&lt;p&gt;The first two lines of the content:-&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{% set bin = &#39;sensor.bin_collection&#39; %}
+{% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;set the initial config up.&lt;/p&gt;
+&lt;p&gt;The next block outputs the next collection date in a reasonable format,
+followed by icons for the appropriate bin type(s) - this is rather complex in
+setting up the right icon to display.&lt;/p&gt;
+&lt;p&gt;The final chunk lists the types of material being collected this week - it
+iterates through the types of collection for this week, and pulls the
+information this collection into the &lt;code&gt;thing&lt;/code&gt; variable.  Thats then used to
+fill in the list elements.&lt;/p&gt;
+&lt;p&gt;This chunk may well be made more detailed in the future, but for now its a
+prototype, and theres a lot of other things than can be built on this should
+someone desire a different presentation.&lt;/p&gt;
+&lt;h2 id=&#34;bins-out-notification&#34;&gt;Bins Out Notification&lt;/h2&gt;
+&lt;p&gt;The intention here was to send a nudge, on the evening before the bins are
+collected, to remind me to put the appropriate bin out.&lt;/p&gt;
+&lt;p&gt;Notifications in Home Assistant are most easily handled by an
+&lt;a href=&#34;https://www.home-assistant.io/docs/automation/&#34;&gt;Automation&lt;/a&gt;. I tend to use
+&lt;a href=&#34;https://pushover.net/&#34;&gt;Pushover&lt;/a&gt; notifications, but there are various other
+&lt;a href=&#34;https://www.home-assistant.io/integrations/#notifications&#34;&gt;Home Assistant
+Notifcations&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The complete automation used looks like this:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#f92672&#34;&gt;id&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1588360498442&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;alias&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Day Tomorrow Notification&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;description&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Tell me about bin day tomorrow&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;trigger&lt;/span&gt;:
+  - &lt;span style=&#34;color:#f92672&#34;&gt;at&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;19:15&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;platform&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;time&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;condition&lt;/span&gt;:
+  - &lt;span style=&#34;color:#f92672&#34;&gt;condition&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;template&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;value_template&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{ as_timestamp(now())+86400 &amp;gt; as_timestamp(states(&amp;#39;&amp;#39;sensor.bin_collection&amp;#39;&amp;#39;))
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;      }}&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;action&lt;/span&gt;:
+  - &lt;span style=&#34;color:#f92672&#34;&gt;data_template&lt;/span&gt;:
+      &lt;span style=&#34;color:#f92672&#34;&gt;message&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{% set bin = &amp;#39;&amp;#39;sensor.bin_collection&amp;#39;&amp;#39; %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        Items collected:- {% for set in state_attr(bin, &amp;#39;&amp;#39;next_collection_types&amp;#39;&amp;#39;)
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        %} {% set thing = state_attr(bin, set) %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        - {{ thing.MaterialsCollected }} {% endfor %}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        &amp;#39;&lt;/span&gt;
+      &lt;span style=&#34;color:#f92672&#34;&gt;title&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Day Tomorrow - {{ &amp;#39;, &amp;#39;.join(state_attr(&amp;#39;sensor.bin_collection&amp;#39;, &amp;#39;next_collection_types&amp;#39;))&lt;/span&gt;
+        }}&lt;span style=&#34;color:#ae81ff&#34;&gt;.&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;service&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;notify.pushover&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So this is an automation that runs every day at 19:15 (the &lt;code&gt;trigger:&lt;/code&gt;
+section), with a condition to check if the collection is tomorrow (see if now
+as a Unix timestamp with 1 days worth of seconds added, is greater than the
+timestamp version of the bin collection date - this is in the &lt;code&gt;condition:&lt;/code&gt;
+section).&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;action:&lt;/code&gt; section calls up the Pushover notification with a message and
+title mostly based on the Lovelace card information shown above.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Minor Gardening</title>
+      <link>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</link>
+      <pubDate>Sat, 02 May 2020 19:50:53 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/05/02/minor-gardening/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve done some tidying of the old posts - mostly this should have zero effect
+on what you see, but the  Markdown has been tidied (line wraps added in to
+make editing more comfortable), and any internal links should now be internal
+rather than going back to the previous wordpress site.&lt;/p&gt;
+&lt;p&gt;Now to actually add some current content&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>York Bins API and Home Assistant</title>
+      <link>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</link>
+      <pubDate>Mon, 20 Apr 2020 17:05:43 +0100</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/</guid>
+      <description>&lt;p&gt;I have been using Home Assistant to automate various things at home.  One of
+the things I thought would be useful was the ability for the system to inform
+me of when the next bin collection is, and what sort of collection this would
+be.&lt;/p&gt;
+&lt;p&gt;Thankfully York Council has an API telling you about their bin collections.
+This is documented at &lt;a href=&#34;https://data.yorkopendata.org/dataset/waste-collection-lookup&#34;&gt;York Waste Collection
+Lookup&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;home-assistant-rest-sensors&#34;&gt;Home Assistant REST Sensors&lt;/h2&gt;
+&lt;p&gt;Home Assistant helpfully can use REST sources as a sensor.  Unfortunately the
+formatting of the data in the York API is not well arranged to be easy for
+Home Assistant to use - in particular Home Assistant is not easily able to
+handle returned data that is organised as an array of dictionaries.&lt;/p&gt;
+&lt;p&gt;People have made use of this in the past - for example see &lt;a href=&#34;https://community.home-assistant.io/t/sorting-rest-sensors-by-date/96786&#34;&gt;this
+example&lt;/a&gt;.
+However this makes multiple calls to the API, which is unfriendly, and relies
+on the API always returning its data in the same order in the array, which
+appears to not be specified.&lt;/p&gt;
+&lt;h2 id=&#34;python-command-line-shim-for-home-assistant&#34;&gt;Python Command Line Shim For Home Assistant&lt;/h2&gt;
+&lt;p&gt;I decided it was better to put a shim in to pull the data from the API, do a
+little processing on the data - specifically changing the date format into
+something sane - and arrange these as a dictionary with some additional
+overall collection data around it.&lt;/p&gt;
+&lt;p&gt;This shim can be found in the Github repository at
+&lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;https://github.com/nigelm/york_bin_collection&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;A sample of using it would look like:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;sensor&lt;/span&gt;:
+  &lt;span style=&#34;color:#75715e&#34;&gt;# York Bins Collection API - 3 sets, 1 for each bin&lt;/span&gt;
+  - &lt;span style=&#34;color:#f92672&#34;&gt;platform&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;command_line&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;command&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/config/york_bin_collection.py 100050567115&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Collection&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;scan_interval&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;86400&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;value_template&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;{{ value_json.next_collection }}&amp;#39;&lt;/span&gt;
+    &lt;span style=&#34;color:#f92672&#34;&gt;json_attributes&lt;/span&gt;:
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;next_collection&lt;/span&gt;
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;next_collection_types&lt;/span&gt;
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;blackbin&lt;/span&gt;
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;greenbin&lt;/span&gt;
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;box&lt;/span&gt;
+      - &lt;span style=&#34;color:#ae81ff&#34;&gt;updated&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and this would return the date of the next collection as the main value -
+currently &lt;code&gt;2020-04-24&lt;/code&gt; - and the state attributes (reported as YAML) then
+looks like:-&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;next_collection&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;next_collection_types&lt;/span&gt;:
+  - &lt;span style=&#34;color:#ae81ff&#34;&gt;blackbin&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;blackbin&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREY 180&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Grey Bin 180L&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDay&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRI&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayFull&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Friday&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequency&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Alternate Weeks&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;WEEK 2&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPoint&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRONT&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Edge of Property at Front&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREY BIN/SACK&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Grey Bin/Black Sack Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;ImageName&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;blackbin&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;MaterialsCollected&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;General Domestic&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;NumberOfBins&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREY BIN/SACK&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Grey Bin/Black Sack Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;last&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-10&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;next&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;greenbin&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREEN 180&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Green Bin 180L&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDay&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRI&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayFull&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Friday&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequency&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Alternate Weeks&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;WEEK 1&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPoint&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRONT&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Edge of Property at Front&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREEN&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Green Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;ImageName&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;greenbin&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;MaterialsCollected&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Garden Waste&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;NumberOfBins&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;GREEN&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Green Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;last&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2019-11-29&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;next&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;box&lt;/span&gt;:
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;BOX 55&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;BinTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Box 55L&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDay&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRI&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayFull&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Friday&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionDayOfWeek&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequency&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Alternate Weeks&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionFrequencyShort&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;WEEK 1&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPoint&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;FRONT&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Edge of Property at Front&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionPointLocation&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;KERBSIDE&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;CollectionTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Kerbside Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;ImageName&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;box&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;Locality&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;MaterialsCollected: &amp;#39;Paper/Card : Plastic/Cans &lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Glass&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;NumberOfBins&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;3&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteType&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;KERBSIDE&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;WasteTypeDescription&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Kerbside Collection&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;last&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-17&amp;#39;&lt;/span&gt;
+  &lt;span style=&#34;color:#f92672&#34;&gt;next&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-05-01&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;updated&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-20 16:25:55.918518&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;friendly_name&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Collection&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This data can then be used in other automations - thats what I am going to
+look at next.&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Relocation and Resurrection</title>
+      <link>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://blog.dotdot.cloud/2020/04/18/relocation-and-resurrection/</guid>
+      <description>&lt;p&gt;After a vastly long hiatus (the post 5 years back stating I intended to blog
+more &lt;em&gt;really&lt;/em&gt; doesn&amp;rsquo;t count), I&amp;rsquo;ve finally put something together.&lt;/p&gt;
+&lt;p&gt;Basically I have a batch of things I am trying out and so want to keep more
+permanent notes on, hence bringing this back into play.&lt;/p&gt;
+&lt;h2 id=&#34;hosting&#34;&gt;Hosting&lt;/h2&gt;
+&lt;p&gt;Previously I put content onto &lt;code&gt;wordpress.com&lt;/code&gt; &amp;ndash; I certainly did not want to
+get involved in actually managing the blogging platform.  However in the mean
+time I have been using &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; for various thing, and it is
+a much nicer system for me to work with, so moving to Hugo was an easy choice.&lt;/p&gt;
+&lt;p&gt;Additionally I can now use &lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt; to host
+the content (or various similar services).&lt;/p&gt;
+&lt;p&gt;The old Wordpress content was dumped as an XML export and converted to
+Markdown as described in &lt;a href=&#34;https://arjan.wooning.cz/conversion-tools-from-wordpress-to-hugo/#final-solution-exitwp-for-hugo&#34;&gt;Conversion tools from Wordpress to
+Hugo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The theme is &lt;a href=&#34;https://themes.gohugo.io/hugo-flex/&#34;&gt;hugo-flex&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Now all I need to do is write more content.&lt;/p&gt;
+</description>
+    </item>
   </channel>
 </rss>
