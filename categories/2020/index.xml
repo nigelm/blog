@@ -7,7 +7,7 @@
     <description>Recent content in 2020 on Nailing Jelly</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Jul 2021 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2020 17:47:31 +0100</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/categories/2020/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Freeserve - How We Built The System</title>
@@ -199,13 +199,13 @@ own version number).  Additionally I found a hack this last week to make
 of Markdown formatting (otherwise the &lt;code&gt;#&lt;/code&gt; header markers cause the
 &lt;code&gt;bump2version&lt;/code&gt; config file to ignore the lines as a comment).&lt;/p&gt;
 &lt;p&gt;So in &amp;lsquo;.bumpversion.cfg&amp;rsquo; you have:-&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;[bumpversion:file:CHANGELOG.md]&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;[bumpversion:file:CHANGELOG.md]&lt;/span&gt;
 &lt;span style=&#34;color:#a6e22e&#34;&gt;search&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#a6e22e&#34;&gt;replace&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        [{new_version}] - {now:%Y-%m-%d}
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;        --------------------&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and in &lt;code&gt;CHANGELOG.md&lt;/code&gt; you have:-&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;Unreleased Changes
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;Unreleased Changes
 ------------------
 
 &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;!-- insertion marker --&amp;gt;&lt;/span&gt;
@@ -285,7 +285,7 @@ card&lt;/a&gt;, setting the title to
 &lt;code&gt;Bin Collection&lt;/code&gt; and filling the card in with some content.   The overall YAML
 definition of the card (click the &lt;code&gt;Show Code Editor&lt;/code&gt; link on the card editor)
 is:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;content&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;gt;2-&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;content&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;&amp;gt;2-&lt;/span&gt;
    {&lt;span style=&#34;color:#ae81ff&#34;&gt;% set bin = &amp;#39;sensor.bin_collection&amp;#39; %}&lt;/span&gt;
    {&lt;span style=&#34;color:#ae81ff&#34;&gt;% set nextdate = strptime(states(bin),&amp;#39;%Y-%m-%d&amp;#39;) %}&lt;/span&gt;
 
@@ -328,7 +328,7 @@ collected, to remind me to put the appropriate bin out.&lt;/p&gt;
 &lt;a href=&#34;https://www.home-assistant.io/integrations/#notifications&#34;&gt;Home Assistant
 Notifcations&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The complete automation used looks like this:-&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#f92672&#34;&gt;id&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1588360498442&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;- &lt;span style=&#34;color:#f92672&#34;&gt;id&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;1588360498442&amp;#39;&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;alias&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Bin Day Tomorrow Notification&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;description&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;Tell me about bin day tomorrow&lt;/span&gt;
   &lt;span style=&#34;color:#f92672&#34;&gt;trigger&lt;/span&gt;:
@@ -402,7 +402,7 @@ overall collection data around it.&lt;/p&gt;
 &lt;p&gt;This shim can be found in the Github repository at
 &lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;https://github.com/nigelm/york_bin_collection&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;A sample of using it would look like:-&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;sensor&lt;/span&gt;:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;sensor&lt;/span&gt;:
   &lt;span style=&#34;color:#75715e&#34;&gt;# York Bins Collection API - 3 sets, 1 for each bin&lt;/span&gt;
   - &lt;span style=&#34;color:#f92672&#34;&gt;platform&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;command_line&lt;/span&gt;
     &lt;span style=&#34;color:#f92672&#34;&gt;command&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;/config/york_bin_collection.py 100050567115&lt;/span&gt;
@@ -419,7 +419,7 @@ overall collection data around it.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and this would return the date of the next collection as the main value -
 currently &lt;code&gt;2020-04-24&lt;/code&gt; - and the state attributes (reported as YAML) then
 looks like:-&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;next_collection&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;next_collection&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;2020-04-24&amp;#39;&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;next_collection_types&lt;/span&gt;:
   - &lt;span style=&#34;color:#ae81ff&#34;&gt;blackbin&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;blackbin&lt;/span&gt;:

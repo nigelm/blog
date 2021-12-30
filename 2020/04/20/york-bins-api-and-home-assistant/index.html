@@ -29,7 +29,7 @@ Home Assistant REST Sensors Home Assistant helpfully can use REST sources as a s
 
 
 
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   <title>York Bins API and Home Assistant | Nailing Jelly</title>
   <link rel="canonical" href="/2020/04/20/york-bins-api-and-home-assistant/">
 
@@ -123,7 +123,7 @@ overall collection data around it.</p>
 <p>This shim can be found in the Github repository at
 <a href="https://github.com/nigelm/york_bin_collection">https://github.com/nigelm/york_bin_collection</a></p>
 <p>A sample of using it would look like:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">sensor</span>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">sensor</span>:
   <span style="color:#75715e"># York Bins Collection API - 3 sets, 1 for each bin</span>
   - <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">command_line</span>
     <span style="color:#f92672">command</span>: <span style="color:#ae81ff">/config/york_bin_collection.py 100050567115</span>
@@ -140,7 +140,7 @@ overall collection data around it.</p>
 </code></pre></div><p>and this would return the date of the next collection as the main value -
 currently <code>2020-04-24</code> - and the state attributes (reported as YAML) then
 looks like:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">next_collection</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">next_collection</span>: <span style="color:#e6db74">&#39;2020-04-24&#39;</span>
 <span style="color:#f92672">next_collection_types</span>:
   - <span style="color:#ae81ff">blackbin</span>
 <span style="color:#f92672">blackbin</span>:

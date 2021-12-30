@@ -29,7 +29,7 @@ I am making use of this data in two ways:-
 
 
 
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   <title>Home Assistant - Bin Collection Display and Notification | Nailing Jelly</title>
   <link rel="canonical" href="/2020/05/03/home-assistant-bin-collection-display-and-notification/">
 
@@ -121,7 +121,7 @@ card</a>, setting the title to
 <code>Bin Collection</code> and filling the card in with some content.   The overall YAML
 definition of the card (click the <code>Show Code Editor</code> link on the card editor)
 is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
    {<span style="color:#ae81ff">% set bin = &#39;sensor.bin_collection&#39; %}</span>
    {<span style="color:#ae81ff">% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}</span>
 
@@ -164,7 +164,7 @@ collected, to remind me to put the appropriate bin out.</p>
 <a href="https://www.home-assistant.io/integrations/#notifications">Home Assistant
 Notifcations</a>.</p>
 <p>The complete automation used looks like this:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
   <span style="color:#f92672">alias</span>: <span style="color:#ae81ff">Bin Day Tomorrow Notification</span>
   <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Tell me about bin day tomorrow</span>
   <span style="color:#f92672">trigger</span>:

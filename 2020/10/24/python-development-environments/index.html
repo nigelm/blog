@@ -29,7 +29,7 @@ However its not the transfer to the language thats caused most of the headaches,
 
 
 
-<meta name="generator" content="Hugo 0.84.0" />
+<meta name="generator" content="Hugo 0.91.0" />
   <title>Python Development Environments | Nailing Jelly</title>
   <link rel="canonical" href="/2020/10/24/python-development-environments/">
 
@@ -140,13 +140,13 @@ own version number).  Additionally I found a hack this last week to make
 of Markdown formatting (otherwise the <code>#</code> header markers cause the
 <code>bump2version</code> config file to ignore the lines as a comment).</p>
 <p>So in &lsquo;.bumpversion.cfg&rsquo; you have:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[bumpversion:file:CHANGELOG.md]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[bumpversion:file:CHANGELOG.md]</span>
 <span style="color:#a6e22e">search</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;!-- insertion marker --&gt;</span>
 <span style="color:#a6e22e">replace</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&lt;!-- insertion marker --&gt;
 </span><span style="color:#e6db74">        [{new_version}] - {now:%Y-%m-%d}
 </span><span style="color:#e6db74">        --------------------</span>
 </code></pre></div><p>and in <code>CHANGELOG.md</code> you have:-</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">Unreleased Changes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">Unreleased Changes
 ------------------
 
 <span style="color:#75715e">&lt;!-- insertion marker --&gt;</span>
