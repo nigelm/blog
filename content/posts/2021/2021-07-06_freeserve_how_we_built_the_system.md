@@ -3,7 +3,7 @@ title: "Freeserve - How We Built The System"
 date: 2021-07-06T00:00:00+01:00
 categories:
   - Blog
-  - 2020
+  - 2021
 tags:
   - Freeserve
   - ISP
@@ -130,7 +130,7 @@ Maildir semantics).
 
 The Mail directory was hashed to spread the layout across the filer - this
 could have been extended across multiple filer heads, but that was not
-necessary during the time I was there. 
+necessary during the time I was there.
 
 The mail hosts always attempted once to deliver external mail.  After that
 they passed the mail to a fallback routing host which dealt with all the
