@@ -10,6 +10,21 @@
     <lastBuildDate>Sat, 31 Mar 2007 09:27:00 +0000</lastBuildDate>
     <atom:link href="https://blog.dotdot.cloud/categories/vmware/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>York Bin Collection API Update</title>
+      <link>https://blog.dotdot.cloud/2021/12/30/york-bin-collection-api-update/</link>
+      <pubDate>Thu, 30 Dec 2021 16:49:00 +0000</pubDate>
+      <guid>https://blog.dotdot.cloud/2021/12/30/york-bin-collection-api-update/</guid>
+      <description>&lt;p&gt;Sometime in 2021 the API I was using to collect information on &lt;a href=&#34;https://blog.dotdot.cloud/2020/04/20/york-bins-api-and-home-assistant/&#34;&gt;Bin Collection
+in York&lt;/a&gt; stopped working, and
+it took me an inordinate amount of time to get to finding out what had
+happened.&lt;/p&gt;
+&lt;p&gt;It appears the API I was using was replaced by a simpler one - although the
+documentation appears to say that this one has been &lt;em&gt;the one&lt;/em&gt; since 2016&amp;hellip;&lt;/p&gt;
+&lt;p&gt;So I have (finally), updated the shim I used to pull the data.&lt;/p&gt;
+&lt;p&gt;The updated shim can be found in the Github repository at &lt;a href=&#34;https://github.com/nigelm/york_bin_collection&#34;&gt;&lt;code&gt;https://github.com/nigelm/york_bin_collection&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    <item>
       <title>Freeserve - How We Built The System</title>
       <link>https://blog.dotdot.cloud/2021/07/06/freeserve-how-we-built-the-system/</link>
       <pubDate>Tue, 06 Jul 2021 00:00:00 +0100</pubDate>
