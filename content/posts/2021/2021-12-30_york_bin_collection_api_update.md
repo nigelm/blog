@@ -1,7 +1,6 @@
 ---
 title: "York Bin Collection API Update"
 date: 2021-12-30T16:49:00Z
-draft: true
 categories:
   - Blog
   - 2020
