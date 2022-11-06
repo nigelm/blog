@@ -43,5 +43,12 @@ enableRobotsTXT = true
   twittercards = true
   summaries = true
   color = "lightseagreen"
+  footer = """
+    Except where otherwise noted, content on this site is licensed under a &#32;
+    <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative
+    Commons Attribution 4.0 International License</a>.<br />&#32;
+    <a rel="me noopener" href="https://fosstodon.org/@nmeth" target="_blank">
+    @nmeth@fosstodon.org on Mastodon</a>
+  """
 
 # end
