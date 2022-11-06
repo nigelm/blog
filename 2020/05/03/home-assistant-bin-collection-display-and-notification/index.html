@@ -10,7 +10,7 @@
   
     <meta name="description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
 I am making use of this data in two ways:-
- Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)">
+Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out. Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)">
   
 
 
@@ -25,11 +25,11 @@ I am making use of this data in two ways:-
 <meta name="twitter:title" content="Home Assistant - Bin Collection Display and Notification"/>
 <meta name="twitter:description" content="Previously I had built a shim to make it much easier to import data from the York Bin Collections API into Home Assistant
 I am making use of this data in two ways:-
- Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out.  Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)"/>
+Making a display card in Lovelace to display information about the next bin collection. Making a notification to prod me to put the right bins out. Lovelace Display This is currently a prototype - and I need to spend more time on working out exactly what I want from the Home Assistant display - I may move to building a substantially minimised display for use with a spare Nook that I have - in a similar way to Turn an old eReader into an Information Screen (Nook STR)"/>
 
 
 
-<meta name="generator" content="Hugo 0.91.0" />
+<meta name="generator" content="Hugo 0.104.3" />
   <title>Home Assistant - Bin Collection Display and Notification | Nailing Jelly</title>
   <link rel="canonical" href="/2020/05/03/home-assistant-bin-collection-display-and-notification/">
 
@@ -121,25 +121,25 @@ card</a>, setting the title to
 <code>Bin Collection</code> and filling the card in with some content.   The overall YAML
 definition of the card (click the <code>Show Code Editor</code> link on the card editor)
 is:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
-   {<span style="color:#ae81ff">% set bin = &#39;sensor.bin_collection&#39; %}</span>
-   {<span style="color:#ae81ff">% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}</span>
-
-  <span style="color:#ae81ff">Next collection on {{ nextdate.strftime(&#34;%A (%-d %B, %Y)  &#34;) }} {%- if</span>
-  <span style="color:#e6db74">&#39;blackbin&#39;</span> <span style="color:#ae81ff">in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
-  <span style="color:#ae81ff">icon=&#34;mdi:delete&#34;&gt;&lt;/ha-icon&gt;{% endif %} {%- if &#39;box&#39; in state_attr(bin,</span>
-  <span style="color:#e6db74">&#39;next_collection_types&#39;</span><span style="color:#ae81ff">) %}&lt;ha-icon icon=&#34;mdi:recycle&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
-  {<span style="color:#ae81ff">%- if &#39;greenbin&#39; in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
-  <span style="color:#ae81ff">icon=&#34;mdi:pine-tree&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
-
-
-  <span style="color:#ae81ff">Items collected:- {% for set in state_attr(bin, &#39;next_collection_types&#39;) %} {%</span>
-  <span style="color:#ae81ff">set thing = state_attr(bin, set) %}</span>
-
-  - {{ <span style="color:#ae81ff">thing.MaterialsCollected }} {% endfor %}</span>
-<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Collection</span>
-<span style="color:#f92672">type</span>: <span style="color:#ae81ff">markdown</span>
-</code></pre></div><p>It is <em>incredibly</em> sensitive to initial spacing and indents&hellip;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">content</span>: <span style="color:#ae81ff">&gt;2-</span>
+</span></span><span style="display:flex;"><span>   {<span style="color:#ae81ff">% set bin = &#39;sensor.bin_collection&#39; %}</span>
+</span></span><span style="display:flex;"><span>   {<span style="color:#ae81ff">% set nextdate = strptime(states(bin),&#39;%Y-%m-%d&#39;) %}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">Next collection on {{ nextdate.strftime(&#34;%A (%-d %B, %Y)  &#34;) }} {%- if</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;blackbin&#39;</span> <span style="color:#ae81ff">in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">icon=&#34;mdi:delete&#34;&gt;&lt;/ha-icon&gt;{% endif %} {%- if &#39;box&#39; in state_attr(bin,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;next_collection_types&#39;</span><span style="color:#ae81ff">) %}&lt;ha-icon icon=&#34;mdi:recycle&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
+</span></span><span style="display:flex;"><span>  {<span style="color:#ae81ff">%- if &#39;greenbin&#39; in state_attr(bin, &#39;next_collection_types&#39;) %}&lt;ha-icon</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">icon=&#34;mdi:pine-tree&#34;&gt;&lt;/ha-icon&gt;{% endif %}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">Items collected:- {% for set in state_attr(bin, &#39;next_collection_types&#39;) %} {%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">set thing = state_attr(bin, set) %}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - {{ <span style="color:#ae81ff">thing.MaterialsCollected }} {% endfor %}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Collection</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">type</span>: <span style="color:#ae81ff">markdown</span>
+</span></span></code></pre></div><p>It is <em>incredibly</em> sensitive to initial spacing and indents&hellip;</p>
 <p>The first two lines of the content:-</p>
 <pre><code>{% set bin = 'sensor.bin_collection' %}
 {% set nextdate = strptime(states(bin),'%Y-%m-%d') %}
@@ -164,30 +164,30 @@ collected, to remind me to put the appropriate bin out.</p>
 <a href="https://www.home-assistant.io/integrations/#notifications">Home Assistant
 Notifcations</a>.</p>
 <p>The complete automation used looks like this:-</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
-  <span style="color:#f92672">alias</span>: <span style="color:#ae81ff">Bin Day Tomorrow Notification</span>
-  <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Tell me about bin day tomorrow</span>
-  <span style="color:#f92672">trigger</span>:
-  - <span style="color:#f92672">at</span>: <span style="color:#e6db74">&#39;19:15&#39;</span>
-    <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">time</span>
-  <span style="color:#f92672">condition</span>:
-  - <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">template</span>
-    <span style="color:#f92672">value_template</span>: <span style="color:#e6db74">&#39;{{ as_timestamp(now())+86400 &gt; as_timestamp(states(&#39;&#39;sensor.bin_collection&#39;&#39;))
-</span><span style="color:#e6db74">      }}&#39;</span>
-  <span style="color:#f92672">action</span>:
-  - <span style="color:#f92672">data_template</span>:
-      <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#39;{% set bin = &#39;&#39;sensor.bin_collection&#39;&#39; %}
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        Items collected:- {% for set in state_attr(bin, &#39;&#39;next_collection_types&#39;&#39;)
-</span><span style="color:#e6db74">        %} {% set thing = state_attr(bin, set) %}
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        - {{ thing.MaterialsCollected }} {% endfor %}
-</span><span style="color:#e6db74">
-</span><span style="color:#e6db74">        &#39;</span>
-      <span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Day Tomorrow - {{ &#39;, &#39;.join(state_attr(&#39;sensor.bin_collection&#39;, &#39;next_collection_types&#39;))</span>
-        }}<span style="color:#ae81ff">.</span>
-    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">notify.pushover</span>
-</code></pre></div><p>So this is an automation that runs every day at 19:15 (the <code>trigger:</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#39;1588360498442&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">alias</span>: <span style="color:#ae81ff">Bin Day Tomorrow Notification</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Tell me about bin day tomorrow</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">trigger</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">at</span>: <span style="color:#e6db74">&#39;19:15&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">platform</span>: <span style="color:#ae81ff">time</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">template</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">value_template</span>: <span style="color:#e6db74">&#39;{{ as_timestamp(now())+86400 &gt; as_timestamp(states(&#39;&#39;sensor.bin_collection&#39;&#39;))
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      }}&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">action</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">data_template</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">message</span>: <span style="color:#e6db74">&#39;{% set bin = &#39;&#39;sensor.bin_collection&#39;&#39; %}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        Items collected:- {% for set in state_attr(bin, &#39;&#39;next_collection_types&#39;&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        %} {% set thing = state_attr(bin, set) %}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        - {{ thing.MaterialsCollected }} {% endfor %}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">title</span>: <span style="color:#ae81ff">Bin Day Tomorrow - {{ &#39;, &#39;.join(state_attr(&#39;sensor.bin_collection&#39;, &#39;next_collection_types&#39;))</span>
+</span></span><span style="display:flex;"><span>        }}<span style="color:#ae81ff">.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">notify.pushover</span>
+</span></span></code></pre></div><p>So this is an automation that runs every day at 19:15 (the <code>trigger:</code>
 section), with a condition to check if the collection is tomorrow (see if now
 as a Unix timestamp with 1 days worth of seconds added, is greater than the
 timestamp version of the bin collection date - this is in the <code>condition:</code>
@@ -259,7 +259,12 @@ title mostly based on the Lovelace card information shown above.</p>
   <footer class="Footer">
     <div class="u-wrapper">
       <div class="u-padding">
-        Except where otherwise noted, content on this site is licensed under a &#32; <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.
+            Except where otherwise noted, content on this site is licensed under a &#32;
+    <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative
+    Commons Attribution 4.0 International License</a>.<br />&#32;
+    <a rel="me noopener" href="https://fosstodon.org/@nmeth" target="_blank">
+    @nmeth@fosstodon.org on Mastodon</a>
+  
       </div>
     </div>
   </footer>
